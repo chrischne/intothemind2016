@@ -112,6 +112,15 @@ function dummyConnector(interval){
   var interval = interval ? interval : 1000; 
   var callbacks = [];
   var intervalID = null;
+
+//we have a problem here
+//needed: have raw data be like in a string, new lines pose problems
+//solution:
+//parse csv seperately with loadStrings, then add anoter separatore (e.g ;) at the end of each line, make one string out of it and then save that string
+//then parse that string in here
+  var dummyData = '1435306984.580000, /muse/elements/low_freqs_absolute, 1.836554, 0.8187782, 0.91968286, 1.251716\n1435306984.580000, /muse/elements/alpha_absolute, -0.021011103, -0.08811933, 0.16697657, 0.2576157\n1435306984.580000, /muse/elements/beta_absolute, 0.36674318, -0.0026942915, 0.4156153, 0.36850438\n1435306984.580000, /muse/elements/delta_absolute, 1.8036615, 0.6501984, 0.7754905, 1.1745322\n1435306984.580000, /muse/elements/gamma_absolute, 0.5930149, 0.021062711, 0.22635365, 0.60664237\n1435306984.581000, /muse/elements/theta_absolute, 0.6995258, 0.32623267, 0.3707374, 0.46343797\n1435306984.581000, /muse/elements/alpha_session_score, 0.0, 0.08108108, 0.47540984, 0.0\n1435306984.581000, /muse/elements/beta_session_score, 0.021276595, 0.23076923, 0.6320755, 0.13333334\n1435306984.581000, /muse/elements/delta_session_score, 1.0, 0.5411765, 0.7152318, 0.7708333\n
+1435306984.581000, /muse/elements/gamma_session_score, 0.7941176, 0.5441176, 0.60583943, 1.0\n
+1435306984.581000, /muse/elements/theta_session_score, 0.7105263, 0.5390625, 0.7314815, 0.372\n
  
 
   function my(){
@@ -177,5 +186,8 @@ function dummyConnector(interval){
   return my;
 
 };
+
+
+
 
 
