@@ -1,11 +1,17 @@
-//muse = museData().connection('ws://10.0.1.4:1234');
-		//muse = museData().connection('http://127.0.0.1:8081');
+
+//connection to muse
+muse = museData().connection('http://127.0.0.1:8081');
 		
-		muse = museData().dummyData(500);
-		muse.listenTo('/muse/elements/raw_fft0', -40, 20, 129, parseMsg);
-		//muse.listenTo('/muse/elements/raw_fft0', parseMsg);
-		//setInterval(updat,1000);
-		muse.start();
+//connection with dummyData
+//muse = museData().dummyData();
+//muse = museData().dummyData(500);
+
+//setting up callbacks to specific id's
+muse.listenTo('/muse/eeg',parseMsg);
+//muse.listenTo('/muse/elements/raw_fft0', parseMsg);
+
+//start data transmission
+muse.start();
 
 
 function setup() {
@@ -15,7 +21,6 @@ function setup() {
 function draw() {
   
 }
-
 
 function parseMsg(msg) {
 		console.log('parseMsg',msg);
