@@ -23,8 +23,13 @@ def main():
     
     print(concat)
     
-    savePath = dir_path + '/' + saveFile
-    with open(savePath, 'w') as outfile:
+    buildPath = dir_path + '/../build/' + saveFile
+    testPath = dir_path + '/../test/' + saveFile
+    
+    with open(buildPath, 'w') as outfile:
+         outfile.write(concat)
+
+    with open(testPath, 'w') as outfile:
          outfile.write(concat)
     
 
