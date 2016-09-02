@@ -27,6 +27,14 @@ var isRecording = false;
 var dataReady = false;
 
 
+//colors
+var deltaColor = 'red';
+var thetaColor = 'green';
+var alphaColor = 'yellow';
+var betaColor = 'blue';
+var gammaColor = 'orange';
+
+
 function setup() {
 	createCanvas(800, 600);
 
@@ -126,40 +134,61 @@ function draw() {
 	stroke('white');
 	//draw delta
 	barWidth = map(deltaStatus[i],0,1,0,chartWidth);
-	fill('red');
+	fill(deltaColor);
 	rect(currX,y,barWidth,barHeight);
 
 	currX += barWidth + gap;
 
 	//draw theta
 	barWidth = map(thetaStatus[i],0,1,0,chartWidth);
-	fill('blue');
+	fill(thetaColor);
 	rect(currX,y,barWidth,barHeight);
 
 	currX += barWidth +  gap;
 
 	//draw alpha
 	barWidth = map(alphaStatus[i],0,1,0,chartWidth);
-	fill('green');
+	fill(alphaColor);
 	rect(currX,y,barWidth,barHeight);
 
 	currX += barWidth + gap;
 
 	//draw beta
 	barWidth = map(betaStatus[i],0,1,0,chartWidth);
-	fill('yellow');
+	fill(betaColor);
 	rect(currX,y,barWidth,barHeight);
 
 	currX += barWidth + gap;
 
 	//draw gamma
 	barWidth = map(gammaStatus[i],0,1,0,chartWidth);
-	fill('orange');
+	fill(gammaColor);
 	rect(currX,y,barWidth,barHeight);
 
 	//currX += barWidth;
 
 	}
+
+
+	//draw a legend
+	var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
+	var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+
+	var labelWidth = 70;
+	var y = 400;
+	var r = 10;
+
+	for(var i=0; i<labels.length; i++){
+		var x = baseX + i*labelWidth;
+		fill(cols[i]);
+		ellipse(x,y,r,r);
+		textAlign(LEFT,CENTER);
+		fill('black');
+		text(labels[i],x+r,y);
+
+
+	}
+
 
 
 }
