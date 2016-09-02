@@ -1,71 +1,81 @@
+///TODO change musedata so that dummy data and real data are the same
+
 var muse;
 
-var horse = null;
-var alph = null;
+var slider;
+
+var done = false;
+
+var threshold = 0.2;
+
+var alphaValue = null;
+
+var dir = 0;
+var speed = 0.1;
+var r = 200;
+var maxR = r;
+
+var dt = dynamicThreshold(0.2);
+
 
 function setup() {
   createCanvas(800,600);
 
   //data connection to muse with sampling rate of muse
-  muse = museData().dummyData(1/220);
+ // muse = museData().dummyData(1/220);
+  muse = museData().connection('http://127.0.0.1:8081');
 
   //listen to the messages we are interested in 
   muse.listenTo('/muse/elements/horseshoe',parseHorse);
-  muse.listenTo('/muse/elements/alpha_absolute',parseAlpha);
+  muse.listenTo('/muse/elements/alpha_relative',parseAlpha);
 
   muse.start();
+
+  //slider = createSlider(0, 100, 50);
+  //slider.position(20, 20);
+
+  //threshold = map(slider.value(),0,100,0,1);
 }
 
 function draw() {
 
-	if(!horse || !alph){
-  background('red');
-  return;
-}
+	if(!alphaValue){
+		background('red');
+		return;
+	}
+	background('orange');
 
-background('white');
+	//set threshold
+	//threshold = map(slider.value(),0,100,0,1);
+	threshold = dt.threshold(alphaValue.mean);
 
-  //draw horseshoe indicator
-  var x = 100;
-  var y = 100;
-  var w = 30;
-  var h = 10;
-  var gap = 10;
+	//update radius based on alpha value and threshold
 
-  var payload = horse.payload;
+	if(alphaValue.mean>=threshold){
+		dir = 1;
+	}
+	else{
+		dir = -1;
+	}
 
-for (var i = 0; i < payload.length; i++) {
-	var val = payload[i];
-	var col = horseShoeCol(val);
-	fill(col);
+	r += dir*speed;
+
+	if(r>maxR){
+		maxR = r;
+	}
+
+	fill('black');
+	text('Dynamic Threshold:\t\t\t\t\t\t '  + nf(threshold,null,3),200,32);
+	text('Measured Relative Alpha:\t\t' + nf(alphaValue.mean,null,3),200,50);
+
+
+	fill('steelblue');
 	noStroke();
+	ellipse(width/2,height/2,r,r);
 
-	var _x = x + i*w + (i-1)*gap;
-	var _y = y;
-	rect(_x,_y,w,h);
-}
-
-
-//draw alpha absolute
-
-stroke(0);
-fill(0);
-text(alph.payload[0],200,200);
-text(alph.payload[1],200,220);
-text(alph.payload[2],200,240);
-text(alph.payload[3],200,260);
-text(alph.mean,200,280);
-
-noFill();
-rect(100,200,50,300);
-
-var h = map(alph.mean,0,0.5,0,300);
-fill(0);
-
-var y = 200 + 300 - h;
-rect(100,y,50,h);
-
-
+	noFill();
+	stroke(100);
+	ellipse(width/2,height/2,maxR,maxR);
 
 
 }
@@ -75,17 +85,22 @@ rect(100,y,50,h);
 function parseHorse(msg){
 
 	json = jsonify(msg);
-	console.log('json',json);
+	//console.log('json',json);
 
 	horse = json;
 }
 
 function parseAlpha(msg){
 	json = jsonify(msg);
-	console.log('json',json);
-	alph = json;
+	//console.log('json',json);
+	alphaValue = json;
 
-	alph.mean = mean(alph.payload);
+	alphaValue.mean = mean(alphaValue.payload);
+
+	if(!done){
+	console.log(alphaValue);
+	done = true;
+}
 }
 
 function mean(arr){
@@ -102,37 +117,61 @@ function mean(arr){
 function jsonify(msg){
 
 	//remove first element, the timestamp
-	var _ts = msg[0];
+	//var _ts = msg[1];
 
 	//remove second element, the id
-	var _id = msg[1];
+	var _id = msg[0];
 
 	//het hold of payload, rest of msg
-	var _pl = msg.slice(2);
+	var _pl = msg.slice(1);
 
 	//create json object
 	return {
-		timestamp: _ts,
 		id: _id,
 		payload: _pl
 	};
 
 }
 
+function dynamicThreshold(val){
 
-function horseShoeCol(val){
-	/*
-	Range	1 = Good
-2 = OK
-3 = Bad
-*/
+	var values = [];
+	var thres = val;
 
+	var step = 0.01;
+	//how many measurements to take into account
+	var n = 3000;
 
-switch(val){
-	case 1: return 'green';
-	case 2: return 'orange';
-	case 3: return 'red';
-	default: return 'yellow';
+	function my(){
+
+	}
+
+	my.threshold = function(val){
+		values.push(val);
+
+		while(values.length>n){
+			values.shift();
+		}
+		
+		/*if(values.length<n){
+			return thres;
+		}*/
+		
+		var _mean = mean(values);
+		console.log('mean',_mean);
+/*
+		if(_mean>thres){
+			thres+=step;
+		}
+		else if(_mean<thres){
+			thres-=step;
+		}*/
+
+		//TODO ask Patrick about how to calculate dynamic threshold
+		thres = 0.8*_mean;
+		return thres;
+	}
+
+	return my;
 }
 
-}
