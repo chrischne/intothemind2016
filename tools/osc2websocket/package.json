@@ -1,0 +1,17 @@
+{
+  "name": "osc2websocket",
+  "version": "1.0.0",
+  "description": "forwards osc messages to websocket",
+  "main": "osc2websocket.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node osc2websocket.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node-osc": "^2.0.3",
+    "socket.io": "^1.4.8"
+  }
+}
