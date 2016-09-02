@@ -98,6 +98,70 @@ function draw() {
 		rect(x, y, barWidth, barHeight);
 	}
 
+
+	//delta, theta, alpha, beta, gamma
+	fill('black');
+	text('Relative Band Powers',150,200);
+
+
+
+	baseX = 300;
+	var chartWidth = 300;
+	gap = 5;
+	var baseY = 190;
+	var vGap = 20;
+
+
+
+	
+	
+
+	//loop through the sensors
+	for(var i=0; i<4; i++){
+
+	var currX = baseX;
+	var y = baseY + i*vGap;
+	
+
+	stroke('white');
+	//draw delta
+	barWidth = map(deltaStatus[i],0,1,0,chartWidth);
+	fill('red');
+	rect(currX,y,barWidth,barHeight);
+
+	currX += barWidth + gap;
+
+	//draw theta
+	barWidth = map(thetaStatus[i],0,1,0,chartWidth);
+	fill('blue');
+	rect(currX,y,barWidth,barHeight);
+
+	currX += barWidth +  gap;
+
+	//draw alpha
+	barWidth = map(alphaStatus[i],0,1,0,chartWidth);
+	fill('green');
+	rect(currX,y,barWidth,barHeight);
+
+	currX += barWidth + gap;
+
+	//draw beta
+	barWidth = map(betaStatus[i],0,1,0,chartWidth);
+	fill('yellow');
+	rect(currX,y,barWidth,barHeight);
+
+	currX += barWidth + gap;
+
+	//draw gamma
+	barWidth = map(gammaStatus[i],0,1,0,chartWidth);
+	fill('orange');
+	rect(currX,y,barWidth,barHeight);
+
+	//currX += barWidth;
+
+	}
+
+
 }
 
 
@@ -204,6 +268,7 @@ function calcAvg(arr){
 }
 
 function parseDelta(msg) {
+	console.log('parseDelta', msg);
 	var values = msg.slice(2);
 	//console.log('values', values);
 	deltaData.push(values);
@@ -211,12 +276,14 @@ function parseDelta(msg) {
 }
 
 function parseTheta(msg) {
+	console.log('parseTheta', msg);
 var values = msg.slice(2);
 	//console.log('values', values);
 	thetaData.push(values);
 }
 
 function parseAlpha(msg) {
+		console.log('parseAlpha', msg);
 	var values = msg.slice(2);
 	//console.log('values', values);
 	alphaData.push(values);
@@ -224,12 +291,15 @@ function parseAlpha(msg) {
 }
 
 function parseBeta(msg) {
+	console.log('parseBeta', msg);
+
 var values = msg.slice(2);
 	//console.log('values', values);
 	betaData.push(values);
 }
 
 function parseGamma(msg) {
+		console.log('parseGamma', msg);
 var values = msg.slice(2);
 	//console.log('values', values);
 	gammaData.push(values);
