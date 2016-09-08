@@ -39,6 +39,9 @@ var alphaColor = 'yellow';
 var betaColor = 'blue';
 var gammaColor = 'orange';
 
+var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
+var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+
 //text size
 var H1 = 32;
 var H2 = 16;
@@ -46,7 +49,7 @@ var H3 = 11;
 
 
 function setup() {
-	createCanvas(800, 600);
+	createCanvas(650, 700);
 
 
 	//MUSEDATA
@@ -62,7 +65,7 @@ function setup() {
 	muse.listenTo('/muse/elements/alpha_relative', parseAlpha);
 	muse.listenTo('/muse/elements/beta_relative', parseBeta);
 	muse.listenTo('/muse/elements/gamma_relative', parseGamma);
-	muse.listenTo('/muse/elements/raw_fft0',parseRawFFT);
+	muse.listenTo('/muse/elements/raw_fft0', parseRawFFT);
 
 
 	//start data transmission
@@ -71,11 +74,11 @@ function setup() {
 
 	//BUTTONS
 	var startButton = createButton('start');
-	startButton.position(300, 135);
+	startButton.position(250, 135);
 	startButton.mousePressed(startRecording);
 
 	var stopButton = createButton('stop');
-	stopButton.position(340, 135);
+	stopButton.position(290, 135);
 	stopButton.mousePressed(stopRecording);
 
 	textFont('Helvetica');
@@ -88,15 +91,15 @@ function draw() {
 
 	fill('black');
 	textSize(H1);
-	text('Baseline', 150, 50);
+	text('Baseline', 100, 50);
 
 
 	push();
-	translate(150, 150);
+	translate(100, 150);
 
 
 	push();
-	translate(0,0);
+	translate(0, 0);
 	//RECORD SECTION
 	textSize(H2)
 	text('Recording', 0, 0);
@@ -112,18 +115,17 @@ function draw() {
 
 
 
-
 	//HORSESHOE
 
 	push();
-	translate(300,0);
+	translate(300, 0);
 	fill('black');
 	textSize(H2);
 	text('Horseshoe', 0, 0);
 
 	push();
-	translate(100,-10);
-	horseshoe(10,10,5,horseShoeStatus);
+	translate(100, -10);
+	horseshoe(10, 10, 5, horseShoeStatus);
 	pop();
 	pop();
 
@@ -131,121 +133,190 @@ function draw() {
 
 	//RELATIVE BAND POWERS
 
-push();
-	translate(0,70);
+	push();
+	translate(0, 70);
 
 
-		//delta, theta, alpha, beta, gamma
-		fill('black');
-		textSize(H2);
-		text('Relative Band Powers',0,0);
+	//delta, theta, alpha, beta, gamma
+	fill('black');
+	textSize(H2);
+	text('Relative Band Powers', 0, 0);
 
-		push();
-		translate(0,20);
-		relativeBands(300,100);
-		pop();
+	push();
+	translate(0, 20);
+	relativeBands(300, 100);
+	pop();
 
 
+
+	pop();
+
+
+
+	// RAW FFT
+	push();
+	translate(0,250);
+	textSize(H2);
+	text('Raw FFT',0,0);
+
+	push();
+	var r = 100;
+	translate(r,r);
+	
+	circularBars(r,rawFFTStatus);
+	pop();
 	
 	pop();
 
-/*
-		//draw a legend
-		var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
-		var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+	
+	push();
+	translate(0,500);
+	drawLegend(70,10,labels,cols);
+	pop();
+			
 
-		var labelWidth = 70;
-		var y = 400;
-		var r = 10;
-
-		for(var i=0; i<labels.length; i++){
-			var x = baseX + i*labelWidth;
-			fill(cols[i]);
-			ellipse(x,y,r,r);
-			textAlign(LEFT,CENTER);
-			fill('black');
-			text(labels[i],x+r,y);
-
-
-		}
-
-	*/
+		
 
 	pop();
 
 }
 
 
-function relativeBands(chartWidth,chartHeight){
+function drawLegend(labelWidth,r,labels,colors){
+
+	//draw a legend
+			//var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
+			//var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+
+		//	var labelWidth = 70;
+			var y = 0;
+		//	var r = 10;
+
+			for(var i=0; i<labels.length; i++){
+				var x = i*labelWidth;
+				fill(colors[i]);
+				ellipse(x,y,r,r);
+				textAlign(LEFT,CENTER);
+				fill('black');
+				textSize(H3)
+				text(labels[i],x+r,y);
 
 
-		baseX = 60;
-		//var chartWidth = 300;
-		//var chartHeight = 100;
-		var vGap = 10;
-		var barHeight= (chartHeight/4)-vGap;
-		gap = 5;
-		var baseY = 0;
-		
+			}
+}
+/**
+
+To get the frequency resolution for the bins, you can divide the sampling rate 
+by the FFT length, so in the case of Muse: 220/256 ~ 0.86Hz/bin
+
+So, the zeroth index of the FFT array represents 0Hz, the next index represents 0-0.86Hz, 
+and so on up to 128*0.86 = 110Hz, which is the maximum frequency 
+that our FFT with its 220Hz sampling rate can detect.
+
+Name	Frequency Range			
+low_freqs	2.5-6.1Hz			
+delta_absolute	1-4Hz			
+theta_absolute	4-8Hz			
+alpha_absolute	7.5-13Hz			
+beta_absolute	13-30Hz			
+gamma_absolute	30-44Hz
+
+
+*/
+function circularBars(r,data){
+	var n = 52;//data.length;
+
+	//y -40.0 to 20.0
+	var minVal = -40;
+	var maxVal = 20;
+
+	var phi = 360/n;
+
+	noFill();
+	stroke('black');
+	for(var i=0; i<n; i++){
+
+		var hz = i*0.86;
+
+		var v = p5.Vector.fromAngle(radians(i*phi-90));
+		var l = map(data[i],minVal,maxVal,0,r);
+		v.mult(l);
+
+		var c = getCol(hz);
+		stroke(c);
+		line(0,0,v.x,v.y);
+	}
+}
+
+
+function relativeBands(chartWidth, chartHeight) {
+
+
+	baseX = 60;
+	//var chartWidth = 300;
+	//var chartHeight = 100;
+	var vGap = 10;
+	var barHeight = (chartHeight / 4) - vGap;
+	gap = 5;
+	var baseY = 0;
 
 
 
-		
-		var labels = ['leaft Ear','left Front', 'right Front', 'right Ear'];
+	var labels = ['leaft Ear', 'left Front', 'right Front', 'right Ear'];
 
-		//loop through the sensors
-		for(var i=0; i<4; i++){
+	//loop through the sensors
+	for (var i = 0; i < 4; i++) {
 
 		var currX = baseX;
-		var y = baseY + i*(barHeight+vGap);
-		
+		var y = baseY + i * (barHeight + vGap);
+
 
 		textSize(H3);
 		noStroke();
 		fill('black');
-		text(labels[i],0,y+vGap+2);
+		text(labels[i], 0, y + vGap + 2);
 
 		stroke('white');
 		//draw delta
-		var barWidth = map(deltaStatus[i],0,1,0,chartWidth);
+		var barWidth = map(deltaStatus[i], 0, 1, 0, chartWidth);
 		fill(deltaColor);
-		rect(currX,y,barWidth,barHeight);
+		rect(currX, y, barWidth, barHeight);
 
 		currX += barWidth + gap;
 
 		//draw theta
-		barWidth = map(thetaStatus[i],0,1,0,chartWidth);
+		barWidth = map(thetaStatus[i], 0, 1, 0, chartWidth);
 		fill(thetaColor);
-		rect(currX,y,barWidth,barHeight);
+		rect(currX, y, barWidth, barHeight);
 
-		currX += barWidth +  gap;
+		currX += barWidth + gap;
 
 		//draw alpha
-		barWidth = map(alphaStatus[i],0,1,0,chartWidth);
+		barWidth = map(alphaStatus[i], 0, 1, 0, chartWidth);
 		fill(alphaColor);
-		rect(currX,y,barWidth,barHeight);
+		rect(currX, y, barWidth, barHeight);
 
 		currX += barWidth + gap;
 
 		//draw beta
-		barWidth = map(betaStatus[i],0,1,0,chartWidth);
+		barWidth = map(betaStatus[i], 0, 1, 0, chartWidth);
 		fill(betaColor);
-		rect(currX,y,barWidth,barHeight);
+		rect(currX, y, barWidth, barHeight);
 
 		currX += barWidth + gap;
 
 		//draw gamma
-		barWidth = map(gammaStatus[i],0,1,0,chartWidth);
+		barWidth = map(gammaStatus[i], 0, 1, 0, chartWidth);
 		fill(gammaColor);
-		rect(currX,y,barWidth,barHeight);
+		rect(currX, y, barWidth, barHeight);
 
 		//currX += barWidth;
 
-		}
+	}
 
 }
 
-function horseshoe(barWidth,barHeight,gap,horse){
+function horseshoe(barWidth, barHeight, gap, horse) {
 	var baseX = 0;
 	//var barWidth = 30;
 	//var barHeight = 10;
@@ -296,12 +367,12 @@ So, the zeroth index of the FFT array represents 0Hz, the next index represents 
 and so on up to 128*0.86 = 110Hz, which is the maximum frequency 
 that our FFT with its 220Hz sampling rate can detect.
 */
-function parseRawFFT(msg){
+function parseRawFFT(msg) {
 	console.log('parseRawFFT');
 
 	//make array from object
 	var arr = [];
-	for(var i=2; i<=99; i++){
+	for (var i = 2; i <= 99; i++) {
 		arr.push(msg[i]);
 	}
 
@@ -388,7 +459,7 @@ function mineData() {
 	//raw FFT statuts
 
 	rawFFTStatus = calcAvg(rawFFTData);
-	console.log('rawFFTStatus',rawFFTStatus);
+	console.log('rawFFTStatus', rawFFTStatus);
 
 
 
@@ -456,4 +527,42 @@ function parseGamma(msg) {
 	var values = msg.slice(2);
 	//console.log('values', values);
 	gammaData.push(values);
+}
+
+function getCol(hz){
+	/*Name	Frequency Range			
+low_freqs	2.5-6.1Hz			
+delta_absolute	1-4Hz			
+theta_absolute	4-8Hz			
+alpha_absolute	7.5-13Hz			
+beta_absolute	13-30Hz			
+gamma_absolute	30-44Hz
+
+
+var deltaColor = 'red';
+var thetaColor = 'green';
+var alphaColor = 'yellow';
+var betaColor = 'blue';
+var gammaColor = 'orange';
+
+*/
+
+	if(hz<4){
+		return deltaColor;
+	}
+	else if(hz<8){
+		return thetaColor;
+	}
+	else if(hz<13){
+		return alphaColor;
+	}
+	else if(hz<30){
+		return betaColor;
+	}
+	else if(hz<44){
+		return gammaColor;
+	}
+	else {
+		return 'black';
+	}
 }
