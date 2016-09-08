@@ -15,6 +15,8 @@ var alphaData = [];
 var betaData = [];
 var gammaData = [];
 
+var rawFFTData = [];
+
 var deltaStatus = [0, 0, 0, 0];
 var thetaStatus = [0, 0, 0, 0];
 var alphaStatus = [0, 0, 0, 0];
@@ -23,7 +25,7 @@ var gammaStatus = [0, 0, 0, 0];
 
 
 //raw FFT data
-var rawFFTData = [];
+
 
 var rawFFTStatus = [];
 
@@ -33,23 +35,25 @@ var dataReady = false;
 
 
 //colors
-var deltaColor = 'red';
-var thetaColor = 'green';
-var alphaColor = 'yellow';
-var betaColor = 'blue';
-var gammaColor = 'orange';
+var deltaColor = '#F6F792';
+var thetaColor = '#333745';
+var alphaColor = '#77C4D3';
+var betaColor = '#DAEDE2';
+var gammaColor = '#EA2E49';
 
-var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
-var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+var cols = [deltaColor, thetaColor, alphaColor, betaColor, gammaColor];
+var labels = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'];
 
 //text size
 var H1 = 32;
 var H2 = 16;
 var H3 = 11;
 
+var TEXTFILL = '#767676';
+
 
 function setup() {
-	createCanvas(650, 700);
+	createCanvas(700, 800);
 
 
 	//MUSEDATA
@@ -87,11 +91,11 @@ function setup() {
 
 function draw() {
 
-	background('grey');
+	background('white');
 
 	fill('black');
 	textSize(H1);
-	text('Baseline', 100, 50);
+	text('Baseline', 100, 80);
 
 
 	push();
@@ -102,6 +106,7 @@ function draw() {
 	translate(0, 0);
 	//RECORD SECTION
 	textSize(H2)
+	fill(TEXTFILL);
 	text('Recording', 0, 0);
 
 	//record light
@@ -119,8 +124,8 @@ function draw() {
 
 	push();
 	translate(300, 0);
-	fill('black');
 	textSize(H2);
+	fill(TEXTFILL);
 	text('Horseshoe', 0, 0);
 
 	push();
@@ -138,13 +143,13 @@ function draw() {
 
 
 	//delta, theta, alpha, beta, gamma
-	fill('black');
+	fill(TEXTFILL);
 	textSize(H2);
 	text('Relative Band Powers', 0, 0);
 
 	push();
 	translate(0, 20);
-	relativeBands(300, 100);
+	relativeBands(375, 100);
 	pop();
 
 
@@ -155,54 +160,55 @@ function draw() {
 
 	// RAW FFT
 	push();
-	translate(0,250);
+	translate(0, 250);
 	textSize(H2);
-	text('Raw FFT',0,0);
+	fill(TEXTFILL);
+	text('Raw FFT', 0, 0);
 
 	push();
-	var r = 100;
-	translate(r,r);
-	
-	circularBars(r,rawFFTStatus);
-	pop();
-	
+	var r = 170;
+	translate(230, 170);
+
+	circularBars(r, rawFFTStatus);
 	pop();
 
-	
+	pop();
+
+
 	push();
-	translate(0,500);
-	drawLegend(70,10,labels,cols);
+	translate(0, 600);
+	drawLegend(70, 15, labels, cols);
 	pop();
-			
 
-		
+
 
 	pop();
 
 }
 
 
-function drawLegend(labelWidth,r,labels,colors){
+function drawLegend(labelWidth, r, labels, colors) {
 
 	//draw a legend
-			//var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
-			//var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
+	//var cols = [deltaColor,thetaColor,alphaColor,betaColor,gammaColor];
+	//var labels = ['Delta','Theta','Alpha','Beta','Gamma'];
 
-		//	var labelWidth = 70;
-			var y = 0;
-		//	var r = 10;
+	//	var labelWidth = 70;
+	var y = 0;
+	//	var r = 10;
 
-			for(var i=0; i<labels.length; i++){
-				var x = i*labelWidth;
-				fill(colors[i]);
-				ellipse(x,y,r,r);
-				textAlign(LEFT,CENTER);
-				fill('black');
-				textSize(H3)
-				text(labels[i],x+r,y);
+	for (var i = 0; i < labels.length; i++) {
+		var x = i * labelWidth;
+		fill(colors[i]);
+		noStroke();
+		ellipse(x, y, r, r);
+		textAlign(LEFT, CENTER);
+		fill(TEXTFILL);
+		textSize(H3)
+		text(labels[i], x + r, y+1);
 
 
-			}
+	}
 }
 /**
 
@@ -223,28 +229,29 @@ gamma_absolute	30-44Hz
 
 
 */
-function circularBars(r,data){
-	var n = 52;//data.length;
+function circularBars(r, data) {
+	var n = 52; //data.length;
 
 	//y -40.0 to 20.0
 	var minVal = -40;
 	var maxVal = 20;
 
-	var phi = 360/n;
+	var phi = 360 / n;
 
 	noFill();
 	stroke('black');
-	for(var i=0; i<n; i++){
+	strokeWeight(2);
+	for (var i = 0; i < n; i++) {
 
-		var hz = i*0.86;
+		var hz = i * 0.86;
 
-		var v = p5.Vector.fromAngle(radians(i*phi-90));
-		var l = map(data[i],minVal,maxVal,0,r);
+		var v = p5.Vector.fromAngle(radians(i * phi - 90));
+		var l = map(data[i], minVal, maxVal, 0, r);
 		v.mult(l);
 
 		var c = getCol(hz);
 		stroke(c);
-		line(0,0,v.x,v.y);
+		line(0, 0, v.x, v.y);
 	}
 }
 
@@ -273,7 +280,7 @@ function relativeBands(chartWidth, chartHeight) {
 
 		textSize(H3);
 		noStroke();
-		fill('black');
+		fill(TEXTFILL);
 		text(labels[i], 0, y + vGap + 2);
 
 		stroke('white');
@@ -327,10 +334,10 @@ function horseshoe(barWidth, barHeight, gap, horse) {
 		var x = baseX + i * (barWidth + gap);
 		var val = horse[i];
 		if (!dataReady) {
-			fill(100);
+			fill(230);
 		} else if (val === 1) {
 			//good
-			fill('green');
+			fill('#468966');
 		} else if (val === 2) {
 			//OK
 			fill('orange');
@@ -351,7 +358,7 @@ function recordingLight() {
 	var scl = 0.1;
 	var val = frameCount * scl;
 	var from = color(255);
-	var to = color(255, 0, 0);
+	var to = color('#EA2E49');
 	var col = lerpColor(from, to, map(sin(val), -1, 1, 0, 1));
 	fill(col);
 	stroke(col);
@@ -398,6 +405,14 @@ function startRecording() {
 
 	if (!isRecording) {
 		console.log('startRecording');
+		 deltaData = [];
+ thetaData = [];
+ alphaData = [];
+ betaData = [];
+ gammaData = [];
+ horseShoeData = [];
+
+var rawFFTData = [];
 		muse.start();
 		isRecording = true;
 	}
@@ -423,7 +438,7 @@ function mineData() {
 	*/
 
 	console.log('mineData');
-	console.log('horseShoeData', horseShoeData);
+	//console.log('horseShoeData', horseShoeData);
 
 	horseShoeStatus = [0, 0, 0, 0];
 	for (var i = 0; i < horseShoeData.length; i++) {
@@ -435,31 +450,31 @@ function mineData() {
 		}
 	}
 
-	console.log('horseShoeStatus', horseShoeStatus);
+	//console.log('horseShoeStatus', horseShoeStatus);
 
 
 	//mine delta, theta, alpha, beta, gamma
 	//calculate the average per sensor
 	deltaStatus = calcAvg(deltaData);
-	console.log('deltaStatus', deltaStatus);
+//	console.log('deltaStatus', deltaStatus);
 
 	thetaStatus = calcAvg(thetaData);
-	console.log('thetaStatus', thetaStatus);
+//	console.log('thetaStatus', thetaStatus);
 
 	alphaStatus = calcAvg(alphaData);
-	console.log('alphaStatus', alphaStatus);
+//	console.log('alphaStatus', alphaStatus);
 
 	betaStatus = calcAvg(betaData);
-	console.log('betaStatus', betaStatus);
+	//console.log('betaStatus', betaStatus);
 
 	gammaStatus = calcAvg(gammaData);
-	console.log('gammaStatus', gammaStatus);
+//	console.log('gammaStatus', gammaStatus);
 
 
 	//raw FFT statuts
 
 	rawFFTStatus = calcAvg(rawFFTData);
-	console.log('rawFFTStatus', rawFFTStatus);
+//	console.log('rawFFTStatus', rawFFTStatus);
 
 
 
@@ -529,7 +544,7 @@ function parseGamma(msg) {
 	gammaData.push(values);
 }
 
-function getCol(hz){
+function getCol(hz) {
 	/*Name	Frequency Range			
 low_freqs	2.5-6.1Hz			
 delta_absolute	1-4Hz			
@@ -547,22 +562,17 @@ var gammaColor = 'orange';
 
 */
 
-	if(hz<4){
+	if (hz < 4) {
 		return deltaColor;
-	}
-	else if(hz<8){
+	} else if (hz < 8) {
 		return thetaColor;
-	}
-	else if(hz<13){
+	} else if (hz < 13) {
 		return alphaColor;
-	}
-	else if(hz<30){
+	} else if (hz < 30) {
 		return betaColor;
-	}
-	else if(hz<44){
+	} else if (hz < 44) {
 		return gammaColor;
-	}
-	else {
+	} else {
 		return 'black';
 	}
 }
