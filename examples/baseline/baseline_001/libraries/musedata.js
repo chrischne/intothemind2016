@@ -151,7 +151,7 @@ function dummyConnector(interval){
   }
 
   my.start = function(){
-    console.log('dummyConnector.start');
+    console.log('dummyConnector.start','interval',interval);
     data = exampleData();
     intervalID = setInterval(this.onMsg, interval);
     return my;

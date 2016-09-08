@@ -34,6 +34,10 @@ var alphaColor = 'yellow';
 var betaColor = 'blue';
 var gammaColor = 'orange';
 
+//text size
+var H1 = 32;
+var H2 = 16;
+
 
 function setup() {
 	createCanvas(800, 600);
@@ -43,7 +47,7 @@ function setup() {
 	//muse = museData().connection('http://127.0.0.1:8081');
 	//connection with dummyData
 	//muse = museData().dummyData();
-	muse = museData().dummyData(100);
+	muse = museData().dummyData(1000/124);
 
 	//setting up callbacks to specific id's
 	muse.listenTo('/muse/elements/horseshoe', parseHorse);
@@ -60,12 +64,15 @@ function setup() {
 
 	//BUTTONS
 	var startButton = createButton('start');
-	startButton.position(150, 70);
+	startButton.position(300, 135);
 	startButton.mousePressed(startRecording);
 
 	var stopButton = createButton('stop');
-	stopButton.position(200, 70);
+	stopButton.position(340, 135);
 	stopButton.mousePressed(stopRecording);
+
+	textFont('Helvetica');
+	textSize(16);
 }
 
 function draw() {
@@ -73,10 +80,30 @@ function draw() {
 	background('white');
 
 	fill('black');
+	textSize(H1);
 	text('Baseline', 150, 50);
 
+	push();
+	translate(150,150);
+
+
+	//RECORD SECTION
+	textSize(H2)
+	text('Recording',0,0);
+
+	//record light
+	if(isRecording){
+		push();
+		translate(100,-5);
+		recordingLight();
+		pop();
+	}
+
+
+
 	//HORSESHOE
-	fill('black');
+	/*fill('black');
+	textSize(H2);
 	text('Horseshoe', 150, 150);
 	var baseX = 300;
 	var barWidth = 30;
@@ -189,8 +216,22 @@ function draw() {
 
 	}
 
+*/
 
+pop();
 
+}
+
+function recordingLight(){
+	ellipseMode(CENTER);
+	var scl = 0.1;
+	var val = frameCount*scl;
+	var from = color(255);
+var to = color(255, 0, 0);
+var col = lerpColor(from, to, map(sin(val),-1,1,0,1));
+fill(col);
+stroke(col);
+	ellipse(0,0,15,15);
 }
 
 
