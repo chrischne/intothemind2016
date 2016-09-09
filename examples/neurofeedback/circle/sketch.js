@@ -18,12 +18,21 @@ var maxR = r;
 var dt = dynamicThreshold(0.2);
 
 
+var dummy = false;
+
+
 function setup() {
   createCanvas(800,600);
 
   //data connection to muse with sampling rate of muse
- // muse = museData().dummyData(1/220);
+
+  if(dummy){
+  	 muse = museData().dummyData(1/220);
+  }
+else{
   muse = museData().connection('http://127.0.0.1:8081');
+
+}
 
   //listen to the messages we are interested in 
   muse.listenTo('/muse/elements/horseshoe',parseHorse);
