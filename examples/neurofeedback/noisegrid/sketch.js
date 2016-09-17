@@ -15,13 +15,20 @@ var dummy = true;
 var debug = true;
 
 //variables for layout
-var paddingTop = 100;
+var paddingTop = 50;
 var paddingLeft = 100;
 
 var h1 = 32;
 var h2 = 18;
 var h3 = 14;
 
+
+//helper 
+var done = false;
+
+//helper angle for grid
+var phi = 10;
+var startPhi = 0;
 
 
 
@@ -30,7 +37,7 @@ function setup() {
 
 	//data connection to muse with sampling rate of muse
 	if (dummy) {
-		muse = museData().dummyData(1 / 220);
+		muse = museData().dummyData(1 / 1000);
 	} else {
 		muse = museData().connection('http://127.0.0.1:8081');
 	}
@@ -52,7 +59,7 @@ function draw() {
 		background('red');
 		return;
 	}
-	background('orange');
+	background('white');
 
 	//title 
 	textSize(h1);
@@ -69,8 +76,45 @@ function draw() {
 	//TODO use marching mean for that, instead of the current value
 	threshold = dt.threshold(alphaValue.mean);
 
+
+
 	//draw the grid: the better the alpha value the more regular the grid of circles
-	
+	//grid dimension
+	var n = 10;
+	var gridWidth = 500;
+	var gridHeight = 500;
+
+	//calculate offets for the grid
+	//if the measured alpha value is higher than the threshold, then the grid is perfect, hence the offset 0
+	//if the measured alpha is lower than the threshold, then the offset is the difference between measured value and threshold
+	var score = 0;
+	if(alphaValue.mean >= threshold){
+		score = 0;
+		startPhi = random(-180,180);
+	}
+	else {
+		score = threshold-alphaValue.mean;
+	}
+
+
+
+	noFill();
+	strokeWeight(3);
+	for(var gridY = 0; gridY < n; gridY++){
+		for (var gridX = 0; gridX < n; gridX++) {
+			var posX = paddingLeft + 10+ gridWidth/n * gridX;
+			var posY = paddingTop + 100 + gridHeight/n* gridY;
+
+			var shiftVector = p5.Vector.fromAngle(radians(startPhi + (gridX+gridY)*phi));
+			
+			var shiftLength = map(score,0,1,0,1000);
+			shiftVector.mult(shiftLength);
+
+			var r = map(score,0,1,15,50);
+
+			ellipse(posX+shiftVector.x,posY+shiftVector.y,r,r);
+		}
+	}
 
 	if (debug) {
 		//display dynamic threshold and current measured value
@@ -171,7 +215,7 @@ function dynamicThreshold(val) {
 					thres-=step;
 				}*/
 
-		//TODO ask Patrick about how to calculate dynamic threshold
+		
 		thres = 0.8 * _mean;
 		return thres;
 	}
