@@ -3,13 +3,14 @@
 var muse;
 
 var threshold = 0.2;
+var maxThreshold = 0;
 
 var alphaValue = null;
 
 var dt = dynamicThreshold(0.2);
 
 //use dummy data when true, otherwise tries to connect to muse
-var dummy = true;
+var dummy = false;
 
 //for displaying debug information
 var debug = true;
@@ -27,7 +28,7 @@ var h3 = 14;
 var done = false;
 
 //helper angle for grid
-var phi = 10;
+var phi = 5;
 var startPhi = 0;
 
 
@@ -69,18 +70,23 @@ function draw() {
 	//subtitle
 	textSize(h2);
 	fill('gray');
-	text('Try to make a regular grid with your brain waves!', paddingLeft, paddingTop + 30);
+	text('Break the regularity of the grid with your brain waves!', paddingLeft, paddingTop + 30);
 
 
 	//valculate dynamic threshold based on current value
 	//TODO use marching mean for that, instead of the current value
 	threshold = dt.threshold(alphaValue.mean);
 
+	if(frameCount>1000){
+	maxThreshold  = max([threshold,maxThreshold]);
+	}
+
 
 
 	//draw the grid: the better the alpha value the more regular the grid of circles
 	//grid dimension
 	var n = 10;
+	var r = 15;
 	var gridWidth = 500;
 	var gridHeight = 500;
 
@@ -89,30 +95,46 @@ function draw() {
 	//if the measured alpha is lower than the threshold, then the offset is the difference between measured value and threshold
 	var score = 0;
 	if(alphaValue.mean >= threshold){
-		score = 0;
-		startPhi = random(-180,180);
+		//score = 0;
+		score = abs(threshold-alphaValue.mean);
+		//startPhi = random(-180,180);
 	}
 	else {
-		score = threshold-alphaValue.mean;
+		//score = threshold-alphaValue.mean;
+		startPhi = random(-180,180);
 	}
 
 
 
 	noFill();
 	strokeWeight(3);
+	randomSeed(0);
 	for(var gridY = 0; gridY < n; gridY++){
 		for (var gridX = 0; gridX < n; gridX++) {
 			var posX = paddingLeft + 10+ gridWidth/n * gridX;
 			var posY = paddingTop + 100 + gridHeight/n* gridY;
 
-			var shiftVector = p5.Vector.fromAngle(radians(startPhi + (gridX+gridY)*phi));
+			//var shiftVector = p5.Vector.fromAngle(radians(startPhi + (gridX+gridY)*phi));
 			
-			var shiftLength = map(score,0,1,0,1000);
-			shiftVector.mult(shiftLength);
+			var shiftLength = map(score,0,1,0,50);
+			//shiftVector.mult(shiftLength);
 
-			var r = map(score,0,1,15,50);
+		
 
-			ellipse(posX+shiftVector.x,posY+shiftVector.y,r,r);
+
+			var shiftX = random(-shiftLength,shiftLength);
+			var shiftY = random(-shiftLength,shiftLength);
+
+			var rShift = map(score,0,1,0,100);
+			var shiftR = random(0,rShift);
+
+
+			var strokeShift = random(0,map(score,0,1,0,20));
+			
+			strokeWeight(2+strokeShift);
+			ellipse(posX+shiftX,posY+shiftY,r+shiftR,r+shiftR);
+
+			//ellipse(posX+shiftVector.x,posY+shiftVector.y,r,r);
 		}
 	}
 
@@ -120,7 +142,8 @@ function draw() {
 		//display dynamic threshold and current measured value
 		fill('black');
 		textSize(h3);
-		text('Dynamic Threshold:\t\t\t\t\t\t ' + nf(threshold, null, 3), paddingLeft, height-50);
+		text('Dynamic Threshold:\t\t\t\t\t\t ' + nf(threshold, null, 3), paddingLeft, height-70);
+		text('Max Threshold:\t\t' + nf(maxThreshold, null, 3), paddingLeft, height-50);
 		text('Measured Relative Alpha:\t\t' + nf(alphaValue.mean, null, 3), paddingLeft, height-30);
 	}
 
@@ -168,10 +191,12 @@ function jsonify(msg) {
 	//var _ts = msg[1];
 
 	//remove second element, the id
-	var _id = msg[1];
+	//var _id = msg[1];
+	var _id = msg[0];
 
 	//het hold of payload, rest of msg
-	var _pl = msg.slice(2);
+	//var _pl = msg.slice(2);
+	var _pl = msg.slice(1);
 
 	//create json object
 	return {
