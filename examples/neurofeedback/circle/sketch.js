@@ -18,7 +18,7 @@ var maxR = r;
 var dt = dynamicThreshold(0.2);
 
 
-var dummy = false;
+var dummy = true;
 
 
 function setup() {
@@ -101,6 +101,7 @@ function parseHorse(msg){
 
 function parseAlpha(msg){
 	json = jsonify(msg);
+
 	//console.log('json',json);
 	alphaValue = json;
 
@@ -125,14 +126,15 @@ function mean(arr){
 
 function jsonify(msg){
 
+	//console.log('msg',msg);
 	//remove first element, the timestamp
 	//var _ts = msg[1];
 
 	//remove second element, the id
-	var _id = msg[0];
+	var _id = msg[1];
 
 	//het hold of payload, rest of msg
-	var _pl = msg.slice(1);
+	var _pl = msg.slice(2);
 
 	//create json object
 	return {
@@ -167,7 +169,7 @@ function dynamicThreshold(val){
 		}*/
 		
 		var _mean = mean(values);
-		console.log('mean',_mean);
+		//console.log('mean',_mean);
 /*
 		if(_mean>thres){
 			thres+=step;
