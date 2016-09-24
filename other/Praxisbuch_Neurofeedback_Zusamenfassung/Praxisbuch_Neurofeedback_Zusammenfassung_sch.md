@@ -127,6 +127,59 @@ Durch das Feedback der eigenen EEG-Aktivität wird die Wahrnehmung der internen
 Das Ziel von Neurofeedback ist es, die Muster der Fehlregulierung zu durchbrechen und das Gehirn wieder in einen besseren Funktionszustand zu bringen.
 Das ZNS ist ein komplexes Netzwerk von Milliarden von Nervenzellen mit Billionen von Verknüpfungen. Es besteht aus verschiedenen funktionalen Ebenen, die vom Kortex absteigend über die verschiedenen subkortikalen Struktu- ren, zum Hirnstamm und bis zum Rückenmark reichen. Obwohl beim Neurofeedback nur die elektrische Aktivität der oberen Kortexschichten gemessen und rückgemeldet wird, können durch die komplexe Verknüpfung der verschiedenen Bereiche auch größere Netzwerke inklusive der subkortikalen und Hirnstamm- bereiche trainiert werden.
 
+#Methoden und Durchführung der Therapie
+##Frequenzbandtraining
+###Entwicklung des Frequenzbandtrainings
+Viele Forscher haben schon vor langer Zeit herausgefunden, dass sie Funktionen ihres Körpers und ihres Gehirns mithilfe von Rückmeldungsmechanismen beeinflussen können. Schon vor 70 Jahren zeigten Jasper und Shagass (1941), dass die klassische Konditionierung des EEGs möglich ist, indem sie den Berger-Effekt mit einem auditiven Stimulus verknüpfen.
+Die Geschichte der Entwicklung von Biofeedback und -Neurofeedback verlief zweigleisig: Auf der einen Seite entffaltete sich
+
+-das Alpha-Training und entwickelte sich in eine eher
+humanistisch-psychologische Richtung,
+-während SMR- und  Theta-/Beta-Training sich in neuro- physiologisch-medizinischen Ansätzen wieder fanden.
+
+
+####Joe Kamiya: Anfänge des Alpha-Trainings
+Es war 1966, als Joe Kamiya, ein Schla orscher an der Uni- versität von Chicago, im Schla abor EEGs überwachte. Er kam auf die Idee, jedes Mal, wenn er Alpha-Spindeln im EEG der Probanden sah, eine Glocke zu läuten und so die Leute auf ihren Alpha-Zustand aufmerksam zu machen. Bald konnten die Probanden sagen, ob sie Alpha-Wellen produzierten oder nicht, und sie waren auch in der Lage, schnellere Alpha-Wellen zu erzeugen. Kamiyas Artikel „Conscious control of brain waves“, der 1968 in Psychology Today verö entlicht wurde, stieß auf großes ö entliches Interesse, und bald begannen alle mög- lichen Geschä emacher und Esoteriker Alpha-Training als „Instant-Nirvana“ anzupreisen – eine Reaktion, die Neuro- feedback damals einen schlechten Ruf einbrachte und die wissenscha liche Akzeptanz zunächst emp ndlich störte.
+
+####Elmer und Alyce Green: Alpha- und Theta-Training
+Elmer und Alyce Green arbeiteten in der Menninger Clinic in Topeka, Kansas und führten dort viele Versu- che mit **Handerwärmungstraining**, **Alpha- und Alpha-Theta-Training** durch. Über 20 Jahre reisten sie weltweit und unterrichteten Biofeedback und Selbstregulations- techniken. 1969 war Elmer Green einer der Mitbegrün- der der Biofeedback Research Society, die heute als As- sociation for Applied Psychophysiology and Biofeedback (AAPB) bekannt ist. Zusammen mit seiner Frau unter- suchte er Yogis, Medizinmänner, Schamanen und Heiler. 1977 wurde Alyce und Elmer Greens Buch „Beyond Biofeedback“ verö entlicht, in dem sie ihre Erfahrungen beschrieben.
+
+Elmer Green propagiert in einem Buch Theta-Training und sagt darüber: „Theta Training ist wie eine Tür, die man Dir zeigt. Die Arbeit des Hindurchgehens musst Du leisten, und das EEG-Gerät ist der Türgriff.“ In einem Interview, das er 2011 als 94-Jähriger gab, empfiehlt er Theta-Training, indem er sagt: „Wenn Du Theta trainierst, dann ist es für Dein Höheres Selbst möglich, mit Dir zu sprechen. Denn um  eta zu produzieren, musst Du Deinen Geist beruhigen und Deinen Gedanken befehlen, eine Zeitlang still zu sein. Und sobald Dein Geist ruhig wird, wird der nächste Bereich aktiv, der Traumlevel beginnt zu Dir zu sprechen, und Du musst in der Lage sein, ihm zuzuhören, ohne einzuschlafen.“
+
+Es wichtig, dass ein Theta-Training nur dann durchgeführt wird, wenn sichergestellt ist, dass seitens des Trainingsanleiters genügend Fachwissen vorhanden ist, um mit plötzlich auftauchenden negativen Erinnerungen umzugehen.
+
+####Alpha-Theta-Training
+####Peniston: Alpha-Theta-Training bei posttraumatischer Belastungsstörung und bei Sucht
+Peniston, ein Psychologe, der sein Training in der Mennin- ger Clinic in Topeka, Kansas bei Elmer Green absolvierte, arbeitete mit Vietnamveteranen, die an PTBS (posttrau- matischer Belastungsstörung) litten.
+Bei diesen Veteranen zeigten sich neben Symptomen wie Angst und Panikstörungen, Alkoholismus, Suizidge- danken, Feindseligkeit und Reizbarkeit auch Eheschwierig- keiten. Untersuchungen ergaben, dass bei den Veteranen, die extreme Kamp andlungen erlebt hatten, das Vorkom- men psychologischer Probleme höher war. Sie berichteten nicht nur von andauernden Ängsten, sondern wurden auch von wiederkehrenden Alpträumen heimgesucht, von Flashbacks, Panikattacken und lebha en Erinnerungen an Extremsituationen im Kampf.
+Bei seiner ersten Studie trainierte Peniston 14 Veteranen, die neben Handerwärmungstraining, Atemübungen und Anleitungen zum Autogenen Training zusätzlich zu Ge- sprächen auch noch ein Alpha-/ eta-Trainingsprotokoll absolvierten. Die Kontrollgruppe mit 15 Veteranen erhielt nur die herkömmliche Gesprächstherapie. Beide Gruppen waren medikamentös eingestellt.
+
+
+Alpha-Theta-Training erlaubt verdrängten Inhalten/ Erinnerungen, sich wieder zu zeigen, so dass sie verar- beitet werden können.
+
+
+Die Alpha- (8–12 Hz) und Theta- (4–8 Hz) Amplituden werden in einer Baseline (über 5 Minuten) bestimmt und dann so einge- stellt, dass bei Überschreiten der Baseline-Schwelle das auditive Feedback hörbar wird.
+Der Ton für Theta wird tiefer eingestellt als der für Alpha. Der Patient soll durch Entspannung versuchen, die Töne so lange wie möglich zu hören.
+Erwünscht wird ein Zustand, bei dem ein Crossover von Theta und Alpha statt ndet, bei dem die Amplitude von Theta die von Alpha übersteigt.
+Das Feedback für Alpha wird bei 70–80 % eingestellt, das für Theta bei 20–30 %.
+Nach der Sitzung bespricht der Patient mit dem Therapeuten seine Erlebnisse.
+
+
+Heilend wirkt nicht das Neurofeedbackprotokoll, sondern der Kontakt mit inneren Ressourcen, der durch das Training möglich wird.
+
+
+
+Alpha-Theta-Training ist auch bei schwierigen Patien- tengruppen mit Modi kationen des Trainingsproto- kolls erfolgreich, besonders im Suchtbereich.
+
+
+Man muss aber nicht an PTBS leiden, um von Alpha-Theta- Training zu profitieren.
+
+####Alpha-Theta-Training als Hochleistungstraining
+Schon vor Jahren schrieb Elmer Green über den traumähn-
+lichen Theta-Zustand, der einen Zugang zum Unbewussten ermöglicht. Es ist bekannt, dass viele Forscher in diesem Stadium zwischen Traum und Realität bahnbrechende Ideen bekamen oder Lösungen für Probleme fanden, mit denen sie sich schon lange beschä igt hatten. Kritische, realistische Überlegungen machen es schwer, kreativ zu sein. Im  eta- Zustand jedoch können neue und ungewöhnliche Inhalte ungehindert von „realistischen Einwänden“ au auchen.
+Solche Überlegungen haben dazu geführt, dass das Alpha- eta-Training auch bei Künstlern wie Sängern, Musikern und Tänzern mit Erfolg durchgeführt wurde. Doch man muss kein Künstler sein, um seine Leistungen durch Bio- und Neurofeedback zu verbessern. Die meisten Patienten möchten einfach in ih- rem täglichen Leben, bei ihrer Arbeit und in ihrer Freizeit besser zurechtkommen und sich besser fühlen. Hier kann Alpha- eta-Training eine effektive Hilfe sein.
+
+
 
 
 
