@@ -149,7 +149,7 @@ Elmer Green propagiert in einem Buch Theta-Training und sagt darüber: „Theta
 Es wichtig, dass ein Theta-Training nur dann durchgeführt wird, wenn sichergestellt ist, dass seitens des Trainingsanleiters genügend Fachwissen vorhanden ist, um mit plötzlich auftauchenden negativen Erinnerungen umzugehen.
 
 ####Alpha-Theta-Training
-####Peniston: Alpha-Theta-Training bei posttraumatischer Belastungsstörung und bei Sucht
+#####Peniston: Alpha-Theta-Training bei posttraumatischer Belastungsstörung und bei Sucht
 Peniston, ein Psychologe, der sein Training in der Mennin- ger Clinic in Topeka, Kansas bei Elmer Green absolvierte, arbeitete mit Vietnamveteranen, die an PTBS (posttrau- matischer Belastungsstörung) litten.
 Bei diesen Veteranen zeigten sich neben Symptomen wie Angst und Panikstörungen, Alkoholismus, Suizidge- danken, Feindseligkeit und Reizbarkeit auch Eheschwierig- keiten. Untersuchungen ergaben, dass bei den Veteranen, die extreme Kamp andlungen erlebt hatten, das Vorkom- men psychologischer Probleme höher war. Sie berichteten nicht nur von andauernden Ängsten, sondern wurden auch von wiederkehrenden Alpträumen heimgesucht, von Flashbacks, Panikattacken und lebha en Erinnerungen an Extremsituationen im Kampf.
 Bei seiner ersten Studie trainierte Peniston 14 Veteranen, die neben Handerwärmungstraining, Atemübungen und Anleitungen zum Autogenen Training zusätzlich zu Ge- sprächen auch noch ein Alpha-/ eta-Trainingsprotokoll absolvierten. Die Kontrollgruppe mit 15 Veteranen erhielt nur die herkömmliche Gesprächstherapie. Beide Gruppen waren medikamentös eingestellt.
@@ -174,10 +174,107 @@ Alpha-Theta-Training ist auch bei schwierigen Patien- tengruppen mit Modi kation
 
 Man muss aber nicht an PTBS leiden, um von Alpha-Theta- Training zu profitieren.
 
-####Alpha-Theta-Training als Hochleistungstraining
-Schon vor Jahren schrieb Elmer Green über den traumähn-
-lichen Theta-Zustand, der einen Zugang zum Unbewussten ermöglicht. Es ist bekannt, dass viele Forscher in diesem Stadium zwischen Traum und Realität bahnbrechende Ideen bekamen oder Lösungen für Probleme fanden, mit denen sie sich schon lange beschä igt hatten. Kritische, realistische Überlegungen machen es schwer, kreativ zu sein. Im  eta- Zustand jedoch können neue und ungewöhnliche Inhalte ungehindert von „realistischen Einwänden“ au auchen.
+#####Alpha-Theta-Training als Hochleistungstraining
+Schon vor Jahren schrieb Elmer Green über den traumähnlichen Theta-Zustand, der einen Zugang zum Unbewussten ermöglicht. Es ist bekannt, dass viele Forscher in diesem Stadium zwischen Traum und Realität bahnbrechende Ideen bekamen oder Lösungen für Probleme fanden, mit denen sie sich schon lange beschä igt hatten. Kritische, realistische Überlegungen machen es schwer, kreativ zu sein. Im  eta- Zustand jedoch können neue und ungewöhnliche Inhalte ungehindert von „realistischen Einwänden“ au auchen.
 Solche Überlegungen haben dazu geführt, dass das Alpha- eta-Training auch bei Künstlern wie Sängern, Musikern und Tänzern mit Erfolg durchgeführt wurde. Doch man muss kein Künstler sein, um seine Leistungen durch Bio- und Neurofeedback zu verbessern. Die meisten Patienten möchten einfach in ih- rem täglichen Leben, bei ihrer Arbeit und in ihrer Freizeit besser zurechtkommen und sich besser fühlen. Hier kann Alpha- eta-Training eine effektive Hilfe sein.
+
+
+####Barry Sterman: Die Entdeckung des SMR-Trainings und Epilepsie
+Ganz im Gegensatz zu Green verfolgten Sterman, Lubar, Monastra und ihre Nachfolger die medizinische Richtung und leiteten ihren Ansatz aus neurophysiologischen Forschungen ab.
+
+
+Barry Sterman arbeitete als Professor für Neurophysiologie an der University of California (UCLA) und befasste sich hauptsächlich mit Schla orschung. Dabei trainierte er mit Katzen und zeigte, dass diese lernen konnten, die Amplitude eines bestimmten Frequenzbandes (12–15 Hz) zu erhöhen. Sterman nannte dieses Frequenzband „SMR“, sensomotorischer Rhythmus, weil es über dem motori- schen Kortex abgeleitet werden konnte, wenn die Katzen motorisch ruhig waren.
+
+
+SMR-Training erhöht die Schwelle für epileptische Anfälle.
+
+
+####Vincent Monastra: Der Theta-Beta-Quotient
+Der Psychologe Vincent Monastra untersuchte Kinder mit Aufmerksamkeitsstörungen und zeigte, dass diese Kinder einen erhöhten Theta-Beta-Quotienten hatten. Im Ver- gleich zu anderen Kindern waren bei ihnen die Amplitu- den der  Beta-Wellen erhöht, während die Amplituden der Beta-Wellen erniedrigt waren.
+
+####Ros: SMR als Training für Chirurgen
+Neurofeedback kann verwendet werden, um die Leistungen von gesunden Menschen zu verbessern. Es wurde untersucht, wie sich die chirurgischen Fertigkeiten von angehenden Augenärzten durch SMR-Training verbessern liessen.
+
+#####Vorgehen: SMR-Theta-Training von Ros
+Der Trainierende sitzt in einem bequemen Stuhl, etwa 1,5 m vom Bildschirm entfernt. Zuerst wird bei o enen Augen an Cz die Base- line über 3 Minuten gemessen. Mit diesen Werten werden dann die Schwellenwerte berechnet, und zwar so, dass für die Schwelle von SMR (12–15 Hz) der entsprechende Wert mit 0,8 multipliziert wird, für das Theta (4–7 Hz) und das High-Beta-Inhibit (22–30 Hz) wird mit 1,2 multipliziert. Immer, wenn es dem Trainierenden ge-  lingt, seine SMR-Amplitude zu erhöhen, ohne dass gleichzeitig Theta und High-Beta mitgehen, bekommt er Punkte. Gleichzeitig wird über ein EMG-Inhibit (40–70 Hz) verhindert, dass Belohnungen für Muskelspannungen vergeben werden.
+
+
+Es stellte sich heraus, dass das Alpha-Theta-Training zwar kleine Erfolge in Technik und Schnelligkeit brachte, aber SMR-Training war deutlich überlegen. Die Ärzte operierten nicht nur um 26% schneller, sondern auch behutsamer. Im Vergleich zu der Kontrollgruppe gab die SMR- Gruppe nach dem Training weniger Ängstlichkeit an.
+
+
+####Davidson und Rosenfeld: Alpha-Training bei Depression
+Das Alpha-Asymmetrietraining bringt die beiden Ansätze, den humanistisch-psychologischen und den neurophysiologisch-medizinischen Ansatz wieder zusammen. Ganz eindeutige neurophysiologische Messungen zeigen den Ein uss von Emotionen auf unser Leben. Trainingsme- thoden wie Alpha-Training, die eher in die Richtung von Selbsterkenntnis und Persönlichkeitsstabilisierung gehen, werden nun wissenscha lich untermauert.  
+Untersuchungen von Davidson (1990, 1998) zeigen, dass eine rechtsfrontale Aktivierung, die sich in einer re- duzierten Alpha-Amplitude äußert, die Aktivierung eines Vermeidungs- und Rückzugssystems repräsentiert und mit negativen Gefühlen verbunden ist.  
+Davidson ist Professor für Psychologie und Psychiatrie und forscht an der Universität von Wisconsin im Labor für a ektive Neurowissenscha . In seinem Buch „ e emotio- nal Life of your Brain“, das er im März 2012 verö entlichte, beschreibt er den emotionalen Stil („emotional style“), der bestimmt, wie ein Mensch durchs Leben geht.  
+Dieser emotionale Stil hat neurophysiologische Wurzeln, die neben anderen neurophysiologischen Besonder- heiten in der unterschiedlichen Aktivierung der beiden frontalen Gehirnhäl en zu  nden sind. Seine Forschungen zeigen, dass die linke Gehirnhälfte eher mit positiven Ge- fühlen, schönen Erinnerungen und einem auf das Leben zugehenden Verhalten zu tun hat, während die Verarbeitung negativer Emotionen eher in der rechten Gehirnhälfte statt-  ndet. Hier  ndet man eher Verhaltenweisen wie Grübeln, sich Sorgen machen und sich ängstlich zurückzuziehen.  
+Befindet sich nun die linke Gehirnhälfte in einem Zustand erhöhter Alpha-Aktivität, dann kann man das gleichsetzen mit einer geringeren Verarbeitung, da Alpha eher als Leerlauf (▶ Exkurs „Der Thalamus und Alpha-Wellen“) bezeichnet werden kann. Positive Gefühle oder Informationen werden nicht richtig wahrgenommen, weil sich das zustän- dige Verarbeitungsgebiet im Leerlauf be ndet. Die rechte Gehirnhäl e dagegen ist vom Leerlauf nicht betro en und kann sich ungestört auf negative Inhalte konzentrieren. So überwiegt das Negative und versetzt den betro enen Men- schen in eine depressive Stimmung, was ihn davon abhält, tatkrä ig mit stressvollen Situationen umzugehen.
+
+#####Vorgehen: Alpha-Asymmetrie-Protokoll nach Rosenfeld
+Die Patienten werden angewiesen, angenehme, beruhi- gende Bilder zu visualisieren, während sie es sich in einem Ses- sel gemütlich machen und ihre Füße hochlegen. Sie sollen ihre Augen schließen und sich so wenig wie möglich bewegen.
+Elektroden werden an F3 (links) und F4 (rechts) angebracht, die Referenzelektrode klebt an Cz. Das Ziel ist, dass die Patienten links weniger Alpha produzieren als rechts.
+Verrechnet werden die beiden EEG-Kanäle folgendermaßen: (R –L)/(R + L)×100
+Beispiel: Rechts werden 15 μV gemessen, links 25 μV
+(15 – 25)/(15+25) ×100 = –25 → Dies ist ein A-Score deut- lich unter 0
+Rechts werden 20 μV gemessen, links 10 μV
+(20 –10)/(20+10)×100 = 33 → Dies ist ein A-Score über 0 Nun wird ein Index berechnet, und zwar der prozentuale An-
+teil der Zeit, die der Patient in der Lage ist, einen A-Score über 0 zu erzeugen. (Rosenfeld und Baehr legten einen Cut-off von 58 % fest. Patienten, die >58 % der Zeit über 0 waren, konnten als nicht depressiv eingeordnet werden.)
+
+
+###Vorgehen beim Frequenzbandtraining
+####Technischer Hintergrund
+Die Tatsache, dass das dominante Au reten bestimmter Hirnwellen im Zusammenhang mit körperlichen und geistigen Zuständen steht, bildet die Grundlage des NF- Trainings. So wie der Dirigent des oben angesprochenen Orchesters in der Lage ist, einzelne Instrumente leiser oder lauter spielen zu lassen (durch Handzeichen), erlernt der Patient im NF-Training, Hirnwellen bestimmter Frequenzbereiche gezielt dominieren zu lassen, d. h. vermehrt hervorzubringen. Der Patient wird zum Dirigent seines eigenen Hirnwellenorchesters. Der Patient nimmt vor einem Monitor Platz, auf dem eine Animation oder ein Computerspiel zu sehen ist. Auf dem Kopf des Patienten wird nun eine Elektrode ange- bracht, mit deren Hilfe das EEG-Rohsignal abgeleitet wird. Auf dem Bildschirm des  erapeuten sind zeitgleich das EEG sowie die durch die FFT aufgeteilten Frequenzbänder zu sehen. Hier gibt es je nach Gerät unterschiedliche Darstellungen.  
+Da unser Gehirn permanent aktiv ist, schwanken die Bal- ken immer. Der  erapeut hat nun die Möglichkeit, für jede Frequenz sog. Schwellenwerte zu bestimmen, die es im Training zu über- bzw. zu unterschreiten gilt. Die auf dem Patientenbildschirm dargestellte Animation oder das Computerspiel ist nun direkt an bestimmte Hirnfrequen- zen gekoppelt.
+
+
+Bei manchen Geräten ist es möglich, die Schwellen- werte über eine mehrminütige Baseline-Messung fest- zulegen. Über 2 oder 3 Minuten wird die Gehirnaktivität gemessen, dabei bewegt sich die Schwelle entsprechend der Amplituden in den ausgesuchten Frequenzbändern. Nach dieser Zeit kann man die Durchschnittswerte, das Minimum und das Maximum der Amplituden (der Laut- stärke oder der im jeweiligen Bereich zur Verfügung ste- henden Energie) berechnen lassen. Nun kann man sich am Durchschnitt orientieren, und die Schwelle entsprechend einstellen. Bemerkt man im Verlauf der Trainingssitzung, dass die eingestellten Werte gut erreicht werden, wird nachreguliert, so dass der Patient immer weiter gefordert wird.  
+Da die Schwellenwerte individuell an die momentane Hirnaktivität angepasst werden, erhält der Patient prak- tisch von der 1. Minute an eine Belohnung in Form einer erwünschten Veränderung auf dem Bildschirm (hier: der weiße Wagen fährt). Je häu ger die belohnende Rückmel- dung wahrgenommen wird, umso mehr lernt unser Ge- hirn, wie es diese Belohnung bekommen hat, also wie es den gewünschten Zustand erreicht hat. Dabei bleibt es für den Patienten anfangs unklar, wie sein Gehirn den weißen Wagen bewegt hat. Bei vielen Patienten bildet sich im Laufe des Trainings eine Strategie aus, aber dies ist keine Notwen- digkeit. Das, was hinter diesen Lernvorgängen steht, wird als operantes Konditionieren (Lernen am Erfolg) bezeich- net und funktioniert auch im Tierreich.  
+Hier zeigen sich o mals Schwierigkeiten in dem Sinne, dass es den Patienten schwer fällt, ohne eine Instruktion durch den  erapeuten das Training zu beginnen. Die Frage „was muss ich denn machen“ wird häu g gestellt. Sinnvoll ist es Beispiele zu bringen, in denen wir Fertigkei- ten gelernt haben und umsetzen, ohne dass wir wissen wie wir das genau im Gehirn steuern (z.b. Fahrradfahren- und das Halten des Gleichgewichtes). Auch beim Erlernen des Fahradfahrens konnte uns niemand explizit sagen wie man das Gleichgewicht hält.
+
+
+
+####Praktisches Vorgehen
+#####Elektrodenpositionierung
+Der Patient nimmt nun vor einem Computerbildschirm Platz. Nun muss die richtige Stelle am Kopf gefunden wer- den, an der die Elektrode angelegt wird. Geht man hier von einem Training mit einer Elektrode an der Ableitposition Cz aus; was und wo ist aber überhaupt Cz?
+1958 wurde ein internationales System vorgeschlagen, nach dem EEG-Elektroden standardisiert positioniert werden können, damit eine einheitliche Interpretation der Hirnaktivität mit Bezug auf den Ort des Au retens möglich ist, das sog. 10-20-System (. Abb. 3.8). Das System ist für 19 Elektroden entwickelt worden, auch wenn beim NF nur 1–2 Elektroden benötigt werden. Die Zahlen 10 und 20 stehen für prozentuale Abstände der Elektroden. Um mit prozentualen Abständen arbeiten zu können, benötigt man Referenzpunkte, auf die sich die Prozentangaben beziehen.
+
+![Abb 3.8](abb_3.8.png)
+
+#####Elektrodenbezeichnungen
+Jetzt wurde herausgefunden, wo **Cz** liegt, aber was bedeutet diese Bezeichnung? Jede Elektrode besteht aus Großbuchstaben, die die Lage über einem bestimmten Hirnareal bezeichnen (. Abb. 3.12).
+
+-F: Frontallappen,
+-FP: frontopolar,
+-T: temporal,
+-C: zentral (Gyrus praecentralis), 
+-P: parietal,
+-O: okzipital
+
+
+Neben den Großbuchstaben tragen die Elektroden eine Zahl in ihrer Bezeichnung, z. B. F3: 
+
+- Ungerade Zahlen geben an, dass es sich um eine
+Lokalisation auf der linken Hirnhälfte (Hemisphäre)
+handelt, 
+- gerade Zahlen beziehen sich auf die rechte Hemisphäre.
+
+
+Die Elektrode F3 befindet sich also links auf dem Frontalkortex.
+
+
+Eine weitere Lagebezeichnung ist der Wert der Zahl: Je
+größer die Zahl ist, umso weiter liegt die Elektrode nach
+außen zur Seite hin, nach „lateral“. Geht etwas zur Mitte
+hin, nennt man dies nach „medial“.
+Tragen die Elektroden ein kleines „z“ anstelle einer
+Zahl, bedeutet es, dass die Elektrode genau über der Mittelinie
+zwischen beiden Hirnhälften liegt, das „z“ steht für
+Zero (engl. Null).
+
+
+
+
+
+
 
 
 
