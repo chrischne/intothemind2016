@@ -243,12 +243,12 @@ Der Patient nimmt nun vor einem Computerbildschirm Platz. Nun muss die richtige 
 Jetzt wurde herausgefunden, wo **Cz** liegt, aber was bedeutet diese Bezeichnung? Jede Elektrode besteht aus Großbuchstaben, die die Lage über einem bestimmten Hirnareal bezeichnen (. Abb. 3.12).
 
 
--F: Frontallappen,
--FP: frontopolar,
--T: temporal,
--C: zentral (Gyrus praecentralis), 
--P: parietal,
--O: okzipital
+- F: Frontallappen,
+- FP: frontopolar,
+- T: temporal,
+- C: zentral (Gyrus praecentralis), 
+- P: parietal,
+- O: okzipital
 
 
 Neben den Großbuchstaben tragen die Elektroden eine Zahl in ihrer Bezeichnung, z. B. F3: 
