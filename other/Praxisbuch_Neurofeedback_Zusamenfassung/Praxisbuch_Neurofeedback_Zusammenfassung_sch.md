@@ -242,6 +242,8 @@ Der Patient nimmt nun vor einem Computerbildschirm Platz. Nun muss die richtige 
 #####Elektrodenbezeichnungen
 Jetzt wurde herausgefunden, wo **Cz** liegt, aber was bedeutet diese Bezeichnung? Jede Elektrode besteht aus Großbuchstaben, die die Lage über einem bestimmten Hirnareal bezeichnen (. Abb. 3.12).
 
+![Abb 3.12](abb_3.12.png)
+
 
 - F: Frontallappen,
 - FP: frontopolar,
