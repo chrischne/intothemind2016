@@ -93,3 +93,47 @@ Man kann sich das am Beispiel der posttraumatischen Belastungsstörung klarmach
 
 
 **Präfrontaler Kortex**: Die inhibitorische (hemmende) Kontrolle ist ein weiterer wichtiger Faktor in der Zusammenarbeit verschiedener Organisationslevel im ZNS. Kortikale Bereiche haben hemmende Kontrolle über niedrigere Gehirnregionen und deren automatisierte Reaktionen. Dies verscha  die nötige Zeit für die detaillierte Analyse sen- sorischer Information. Dadurch können die verschiedenen Prioritäten und die möglichen Konsequenzen des eigenen Handelns in Betracht gezogen werden, bevor die Reaktion auf die sensorischen Reize ausgeführt wird. Der präfron- tale Kortex ist der höchste Level in der Organisation der inhibitorischen Kontrolle des ZNS. Gute präfrontale Kontrolle ist essenziell für Selbstkon- trolle und überlegtes Handeln.
+
+###Computational Neuroscience
+Computational Neuroscience ist noch eine recht junge Forschungsdisziplin, die versucht, Experiment und  eo- rie zu verbinden. In interdisziplinärer Zusammenarbeit mit Biologen, Medizinern, Physikern, Mathematikern, Pro- grammierern und Ingenieuren werden in Computermo- dellen neuronale Prozesse simuliert und nachgebildet, um die Funktionsweise des Gehirns besser zu verstehen. Durch die stetige Weiterentwicklung bildgebender Verfahren sowie die ständig verbesserten Möglichkeiten der Datenanalyse durch leistungsstarke Computer erö nen sich stetig neue Chancen, die Funktionsweise und Fehlregulationen des Gehirns auf Netzwerkebene zu erforschen. Dieser For- schungszweig wird in den nächsten Jahren ho entlich noch viele Erklärungen bringen, warum neuromodulatorische Methoden wie das Neurofeedback die Selbstregulationsfä- higkeit des komplexen Systems „Gehirn“ so effektiv fördern können. 
+
+###Die Entdeckung des Elektroenzephalogramms
+####Die erste Annäherung an das EEG
+**Richard Caton** (1842–1926) war Arzt und praktizierte seinerzeit in Liverpool. Er untersuchte als Erster die elek- trische Aktivität an der freigelegten Großhirnrinde von Hasen und A en. Dabei entdeckte er „schwache Ströme mit wechselnder Richtung“, wenn er beide Elektroden an der Schädelober äche platzierte oder eine Elektrode auf der freigelegten grauen Substanz und eine auf der Schädel- ober äche. Diese schwachen Ströme waren wohl damals noch durchsetzt mit großen Artefakten, dennoch gaben Catons’ Arbeiten die ersten Hinweise darauf, dass an der Schädelober äche schwankende Potenziale zu messen seien. Seine ersten Arbeiten wurden später auch von Hans Berger zitiert.
+
+####Hans Berger: Die Entdeckung des menschlichen EEGs
+**Hans Berger** (1873–1941), ein deutscher Psychiater, star- tete seine ersten EEG-Experimente zunächst wie seine Kollegen mit der Untersuchung des EEGs an Tieren. Seine Forschungen über das menschliche EEG begannen 1920. Er bestellte viele Patienten mit o enen Schädelverletzungen in sein Labor. Damals, nach Ende des 1. Weltkriegs, standen viele solcher Patienten zur Verfügung. Berger er- kannte jedoch, dass die Messungen an Patienten mit offenen Schädeldecken nicht zwangsläuffig bessere Messergebnisse brachten als Messungen an der Schädeloberfäche.  
+In seiner ersten Publikation über das menschliche EEG beschreibt Hans Berger 1929 den als Berger-E ekt bekannten Alpha- Block: Bei geschlossenen Augen dominiert im posterioren EEG der Alpha-Rhythmus. Er ist schon im rohen EEG recht gut an seiner typischen Spindelform und der Fre- quenz zwischen 8–10 Hz zu erkennen. Dieser Rhythmus wird unterbrochen, sobald der Proband die Augen ö net und visuellen Input verarbeitet. Dann werden die Alpha- Wellen durch kleinere und schnellere (15–23 Hz) Betawel- len abgelöst (. Abb. 1.18). Der Alpha- oder Berger-Block ist individuell unterschiedlich stark ausgeprägt.
+Trotz akribischer wissenscha licher Experimente wa- ren Bergers Ideen über die „psychische Energie“ in der wissenscha lichen Welt nicht ganz unumstritten. Nichts- destotrotz waren seine EEG-Experimente wegweisend für die Neurowissenschaften.
+
+###Was wird mit dem EEG gemessen?
+####Ursprung des EEG-Signals
+Wesentlich verantwortlich für das schwache elektrische Signal, das im EEG messbar ist, sind die Nervenzellen im Kortex, die als Pyramidenzellen bekannt sind. Sie heißen Pyramidenzellen, weil ihr Zellkörper im Schnittbild an die Form einer Pyramide erinnert. Es sind relativ große Nervenzellen, im Kortex sind sie am häufigsten vertreten. Die apikalen Dendriten empfangen wie Antennen exzitatorischen Input, v. a. von unspezifischen thalamischen Kernen sowie Kommissuren und langen A erenzfasern (. Abb. 1.19). Die inhibitorischen Synapsen finden sich eher an Dendriten in Soma-(Zellkörper-)Nähe. Für das EEG-Signal entscheidend sind die elektrische Aktivität der apikalen Dendriten und die senkrechte Anordnung der kortikalen Module.
+
+Dieser **Stromfluss um die Zelle**, senkrecht zur Oberfläche des Gehirns wird nun im EEG mit einer Auslenkung der Kurve nach oben sichtbar, d. h., eine negative Auslenkung im EEG steht für eine Erregung im Kortex. Allerdings würde es nicht ausreichen, wenn nur an einer einzigen Zelle eine derartige Umkehrung der Potenzialdi erenz au reten würde. Das Signal wäre viel zu schwach, um an der Schädelober äche registriert zu werden. Daher müssen mehrere 1000 Neuronen synchron dieselbe Veränderun- gen zeigen, d. h. zum selben Zeitpunkt erregt werden; hier man spricht von Makrorhythmen.
+
+####Rhythmen im EEG
+Das Ausmaß der Aktivierung bzw. Aktiviertheit des Kortex (der Neurone) spiegelt sich in verschiedenen Ge- schwindigkeiten wider, in denen die Potenzialverschiebun- gen statt nden. Man spricht hier von Frequenzbändern, in die sich das EEG mathematisch mittels der Fast-Fou- rier-Transformation zerlegen lässt. Grundsätzlich kann das Signal in 4 Hauptfrequenzbänder zerlegt werden, die sich dadurch unterscheiden, wie o  pro Sekunde eine Erregung der Neurone ausgedrückt durch einen Ausschlag im EEG statt ndet. Die Schwingungen im EEG werden in Hertz (Hz) angegeben (. Abb. 1.21).
+
+![Abb 1.21](abb_1.21.png)
+
+Je nach Bewusstseinslage dominieren unterschiedli- che Frequenzen das EEG, d. h., der Anteil eines Bandes am Gesamt-EEG variiert (. Tab. 1.2). Das Dominieren eines Frequenzbandes kann man sich vorstellen wie das Abwechseln der Lautstärke verschiedener Instrumente in einem Orchester. So ist z. B. in einem entspannten Wachzustand das Alpha-Band dominant, während das Beta-Band immer dominant ist, wenn eine Person mental aktiv ist. Im Tiefschlaf dominiert das Delta-Band, beim Dösen das  eta-Band. Bildlich gesehen gibt die FFT also die Laut- stärke eines Instruments zu einem Zeitpunkt innerhalb des Gesamtorchesters an. Während die klassischen Fre- quenzbänder (Alpha, Beta,  eta, Delta) den Erregungs- level des Gehirns widerspiegeln, hängen die langsamen Potenzialschwankungen (Frequenzen <0,1 Hz) eher mit der Erregbarkeit zusammen, d. h., wie bereit sind die neuronalen Netzwerke überhaupt, in Aktion zu treten? Um bei dem Vergleich mit dem Orchester zu bleiben, könnte man das mit dem richtigen Einsatz vergleichen: Wann ist wer dran, und wie wissen die jeweiligen Stimmen, wann sie die Lautstärke ändern sollen.
+
+![Tab 1.2](tab_1.2.png)
+
+
+##Können alle Hirnstrukturen über Neurofeedback beeinflusst werden?
+Durch das Feedback der eigenen EEG-Aktivität wird die Wahrnehmung der internen Zustände verbessert. Das fördert die Selbstregulation, was wiederum die Gehirnfunktion verbessert. Unser Gehirn ist immer bestrebt, uns am Leben zur erhalten und optimal zu funktionieren. Allerdings sind wir oft in Fehlfunktionen gefangen.
+Das Ziel von Neurofeedback ist es, die Muster der Fehlregulierung zu durchbrechen und das Gehirn wieder in einen besseren Funktionszustand zu bringen.
+Das ZNS ist ein komplexes Netzwerk von Milliarden von Nervenzellen mit Billionen von Verknüpfungen. Es besteht aus verschiedenen funktionalen Ebenen, die vom Kortex absteigend über die verschiedenen subkortikalen Struktu- ren, zum Hirnstamm und bis zum Rückenmark reichen. Obwohl beim Neurofeedback nur die elektrische Aktivität der oberen Kortexschichten gemessen und rückgemeldet wird, können durch die komplexe Verknüpfung der verschiedenen Bereiche auch größere Netzwerke inklusive der subkortikalen und Hirnstamm- bereiche trainiert werden.
+
+
+
+
+
+
+
+
+
+
+
