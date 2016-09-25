@@ -26,14 +26,22 @@ var betaValue = {};
 var gammaValue = {};
 
 
+var bestAlpha = 0;
+var bestTheta = 0;
+var minBeta = 10000;
+
+
 
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
 	//data connection to muse with sampling rate of muse
 	if (dummy) {
-		muse = museData().dummyData(1 / 1000);
+		console.log('using dummy data');
+		muse = museData().dummyData(1 / 250);
 	} else {
-		muse = museData().connection('http://10.0.1.4:8081');
+		var museAddress = 'http://10.0.1.4:8081';
+		console.log('trying to connect to muse on ' + museAddress);
+		muse = museData().connection(museAddress);
 	}
 
 	//listen to the messages we are interested in 
@@ -62,6 +70,10 @@ function draw() {
 
 	background('white');
 
+	if(frameCount%10 == 0){
+		console.log('frameRate: ' + frameRate());
+	}
+
 	//neurofeedback process
 	//update thresholds based on values
 	var thresholdAlpha = alphaThres.threshold(alphaValue.mean);
@@ -77,10 +89,13 @@ function draw() {
 	//console.log('score',score);
 
 
+
 	//nr bars
 	var sc = 1;
 	var nrBars = floor(map(score, 0.8, 1.2, 2, 10));
 	// console.log('nrBars',nrBars,score);
+
+
 
 	var gap = height / nrBars;
 	strokeWeight(10);
@@ -94,10 +109,26 @@ function draw() {
 	//console.log('threshold',threshold,'score',score);
 
 	noStroke();
+	textSize(12);
 	text('Theta: ' + nf(thetaValue.mean, null, 3), 20, height - 100);
 	text('Alpha: ' + nf(alphaValue.mean, null, 3), 20, height - 80);
 	text('Beta: ' + nf(betaValue.mean, null, 3), 20, height - 60);
 	text('Score: ' + nf(score, null, 3), 20, height - 40);
+
+
+	if(frameCount>1000){
+
+	//show best score
+	bestAlpha = max([bestAlpha,alphaValue.mean]);
+	bestTheta = max([bestTheta,thetaValue.mean]);
+	minBeta = min([minBeta,betaValue.mean]);
+
+	textSize(20);
+	text(nf(bestTheta, null, 3), width-100, height - 100);
+	text(nf(bestAlpha, null, 3), width-100, height - 80);
+	text(nf(minBeta, null, 3), width-100, height - 60);
+	
+	}
 
 }
 
