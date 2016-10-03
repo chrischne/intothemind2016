@@ -1,5 +1,5 @@
 #Praxisbuch Neurofeedback
-##Zusammenfassung von Christian Schneider
+##Zusammenfassung 
 
 #Biofeedback und Neurofeedback
 ##Was ist Biofeedback?
