@@ -39,7 +39,7 @@ function setup() {
 		console.log('using dummy data');
 		muse = museData().dummyData(1 / 250);
 	} else {
-		var museAddress = 'http://10.0.1.4:8081';
+		var museAddress = 'http://127.0.0.1:8081';
 		console.log('trying to connect to muse on ' + museAddress);
 		muse = museData().connection(museAddress);
 	}
