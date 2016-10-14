@@ -37,6 +37,10 @@ var minBeta = 10000;
 
 
 
+//for drawing arcs
+int num =20;
+float step, sz, offSet, theta, angle;
+
 
 function setup() {
 	createCanvas(window.innerWidth, window.innerHeight);
@@ -54,7 +58,7 @@ function setup() {
 	//muse.listenTo('/muse/elements/horseshoe', parseHorse);
 	muse.listenTo('/muse/elements/alpha_relative', parseAlpha);
 	muse.listenTo('/muse/elements/beta_relative', parseBeta);
-	muse.listenTo('/muse/elements/gamma_relative', parseGamma);
+	//muse.listenTo('/muse/elements/gamma_relative', parseGamma);
 	muse.listenTo('/muse/elements/theta_relative', parseTheta);
 
 
@@ -106,49 +110,10 @@ function draw() {
 
 	//calculate brainwave fitness
 	var score = fitness(thetaValue.mean, alphaValue.mean, betaValue.mean, thresholdTheta, thresholdAlpha, thresholdBeta);
-	//console.log('score',score);
+	console.log('score',score);
 
 
 
-	//nr bars
-	var sc = 1;
-	var nrBars = floor(map(score, 0.8, 1.2, 2, 10));
-	// console.log('nrBars',nrBars,score);
-
-
-
-	var gap = height / nrBars;
-	strokeWeight(10);
-	stroke(0, 100);
-	for (var i = 0; i < nrBars; i++) {
-		line(0, i * gap, width, i * gap);
-	}
-
-
-	//create drawing based on threshold and fitness
-	//console.log('threshold',threshold,'score',score);
-
-	noStroke();
-	textSize(12);
-	text('Theta: ' + nf(thetaValue.mean, null, 3), 20, height - 100);
-	text('Alpha: ' + nf(alphaValue.mean, null, 3), 20, height - 80);
-	text('Beta: ' + nf(betaValue.mean, null, 3), 20, height - 60);
-	text('Score: ' + nf(score, null, 3), 20, height - 40);
-
-
-	if(frameCount>1000){
-
-	//show best score
-	bestAlpha = max([bestAlpha,alphaValue.mean]);
-	bestTheta = max([bestTheta,thetaValue.mean]);
-	minBeta = min([minBeta,betaValue.mean]);
-
-	textSize(20);
-	text(nf(bestTheta, null, 3), width-100, height - 100);
-	text(nf(bestAlpha, null, 3), width-100, height - 80);
-	text(nf(minBeta, null, 3), width-100, height - 60);
-	
-	}
 
 }
 
