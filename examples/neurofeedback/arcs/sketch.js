@@ -7,9 +7,12 @@
  */
 
 
- //window length 2-5 sec
+//credits
+//https://www.openprocessing.org/sketch/152169
 
- //
+//window length 2-5 sec
+
+//
 
 var muse;
 
@@ -18,9 +21,10 @@ var dummy = true;
 
 var done = false;
 
-var alphaThres = dynamicThreshold(0.2);
-var thetaThres = dynamicThreshold(0.2);
-var betaThres = dynamicThreshold(0.2);
+//var alphaThres = dynamicThreshold(0.2);
+//var thetaThres = dynamicThreshold(0.2);
+//var betaThres = dynamicThreshold(0.2);
+var thresh = dynamicThreshold(0.2);
 
 
 var threshold = 0;
@@ -38,8 +42,15 @@ var minBeta = 10000;
 
 
 //for drawing arcs
-int num =20;
-float step, sz, offSet, theta, angle;
+var num = 20;
+var step = 22;
+var sz = 0;
+var offSet = 0;
+var thet = -3;
+var angle = 0;
+
+
+var rSlider;
 
 
 function setup() {
@@ -68,7 +79,14 @@ function setup() {
 
 	//set the font
 	textFont('HelveticaNeue-Light');
+
+	//for the arcs
+	strokeWeight(5);
+	
+
+
 	frameRate(24);
+
 }
 
 function draw() {
@@ -82,25 +100,22 @@ function draw() {
 
 
 
-
-
-
 	if (!thetaValue.mean || !alphaValue.mean || !betaValue.mean) {
 		background('red');
 		return;
 	}
 
-	background('white');
+	background(20);
 
-	if(frameCount%10 == 0){
+	if (frameCount % 10 == 0) {
 		console.log('frameRate: ' + frameRate());
 	}
 
 	//neurofeedback process
 	//update thresholds based on values
-	var thresholdAlpha = alphaThres.threshold(alphaValue.mean);
-	var thresholdTheta = thetaThres.threshold(thetaValue.mean);
-	var thresholdBeta = betaThres.threshold(betaValue.mean);
+	//var thresholdAlpha = alphaThres.threshold(alphaValue.mean);
+	//var thresholdTheta = thetaThres.threshold(thetaValue.mean);
+	//var thresholdBeta = betaThres.threshold(betaValue.mean);
 
 
 
@@ -109,9 +124,42 @@ function draw() {
 	//console.log('thresholdBeta',thresholdBeta);
 
 	//calculate brainwave fitness
-	var score = fitness(thetaValue.mean, alphaValue.mean, betaValue.mean, thresholdTheta, thresholdAlpha, thresholdBeta);
-	console.log('score',score);
 
+//	var score = fitness(thetaValue.mean, alphaValue.mean, betaValue.mean, thresholdTheta, thresholdAlpha, thresholdBeta);
+//	console.log('score', score);
+
+	var value = alphaTheta(alphaValue.mean,thetaValue.mean,betaValue.mean);
+	var threshold = thresh.threshold(value);
+	var fitness = value - threshold;
+	console.log('value',value);
+	console.log('threshold',threshold);
+	console.log('fitness',fitness);
+
+	var dir = map(fitness,-0.2,0.2,-0.01,0.01);
+
+
+//thet += dir; 
+thet = constrain(thet+dir,-3,0);
+console.log('thet',thet);
+
+
+	push();
+	translate(width / 2, height * .75);
+	angle = 0;
+	for (var i = 0; i < num; i++) {
+		stroke(255);
+		noFill();
+		sz = i * step;
+		//var offSet = TWO_PI / num * i;
+		var offSet = (PI / num * i)*0.5;
+		// console.log('thet',thet);
+		var arcEnd = map(sin(thet + offSet), -1, 1, PI, TWO_PI);
+		arc(0, 0, sz, sz, PI, arcEnd);
+	}
+	
+	pop();
+	//thet += .0523;
+	
 
 
 
@@ -225,6 +273,15 @@ function jsonify(msg) {
 
 }
 
+
+function alphaTheta(_alpha,_theta,_beta){
+	if(!_alpha || !_theta || !_beta){
+		return 0;
+	}
+	var betaWeight = -0.5;
+	var diffWeigth = 0.5;
+	return _alpha + _theta + betaWeight*_beta + diffWeigth*(_theta-_alpha)
+}
 
 /**
  * calculate fitness of brainwave
