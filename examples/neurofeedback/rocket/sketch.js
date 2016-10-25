@@ -1,5 +1,3 @@
-
-
 var muse;
 
 //initialize museData
@@ -13,16 +11,29 @@ var thresh = dynamicThreshold();
 
 var rocket = null;
 var planets = [];
-var nrPlanets = 1000;
+var nrPlanets = 100;
+var stars = [];
+var nrStars = 10000;
 
 
-var universeWidth = 500;
-var universeHeight = 10000;
+var universeWidth = 200;
+var universeHeight = 50000;
 
 var rocketimg = null;
+var planetimgs = [];
+var starImg = null;
+
+var dt = 0.1;
+var clipDist = 100;
 
 function preload() {
-  rocketimg = loadImage("assets/rocket.png");
+	rocketimg = loadImage("assets/rocket.png");
+	planetimgs.push(loadImage("assets/planet1.png"));
+	planetimgs.push(loadImage("assets/planet2.png"));
+	planetimgs.push(loadImage("assets/planet3.png"));
+	planetimgs.push(loadImage("assets/planet4.png"));
+	planetimgs.push(loadImage("assets/planet5.png"));
+	starImg = loadImage("assets/star.png");
 }
 
 
@@ -49,13 +60,19 @@ function setup() {
 
 	//set the font
 	textFont('HelveticaNeue-Light');
-	
-	rocket = createRocket(universeWidth/2,0,rocketimg);
 
-	for(var i=0; i<nrPlanets; i++){
-		var p = createPlanet(random(0,universeWidth),random(0,universeHeight));
+	rocket = createRocket(universeWidth / 2, 0, rocketimg);
+
+	for (var i = 0; i < nrPlanets; i++) {
+		var p = createPlanet(random(0, universeWidth), random(0, universeHeight), planetimgs[floor(random(0, planetimgs.length))]);
 		planets.push(p);
 	}
+
+	for (var i = 0; i < nrStars; i++) {
+		var s = createStar(random(0, universeWidth), random(0, universeHeight), starImg);
+		stars.push(s);
+	}
+
 
 	frameRate(30);
 	imageMode(CENTER);
@@ -72,60 +89,114 @@ function draw() {
 	}
 
 
-	rocket.update();
+	rocket.update(dt);
 
 
 	//fill('red');
 	//ellipse(rocket.pos.x,rocket.pos.y,50,50);
 
-	var clipDist = 100;
-	var sx = map(rocket.pos.x,rocket.pos.x-clipDist,rocket.pos.x+clipDist,0,width);
-	var sy = map(rocket.pos.y,rocket.pos.y-clipDist,rocket.pos.y+clipDist,height,0);
 
-	//ellipse(rocket.pos.x,rocket.pos.y,50,50);
-	//fill('green');
-	//ellipse(sx,sy,50,50);
-	rocket.draw(sx,sy);
+	var sx = map(rocket.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+	var sy = map(rocket.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 
+	stars.forEach(function(p) {
+		var sx = map(p.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+		var sy = map(p.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 
-	planets.forEach(function(p){
-		var sx = map(p.pos.x,rocket.pos.x-clipDist,rocket.pos.x+clipDist,0,width);
-		var sy = map(p.pos.y,rocket.pos.y-clipDist,rocket.pos.y+clipDist,height,0);
-
-		if(sx>0 && sx<width && sy>0 && sy < height){
-		fill(0);
-		ellipse(sx,sy,50,50);
+		if (sx > 0 && sx < width && sy > 0 && sy < height) {
+			//fill(0);
+			//ellipse(sx,sy,50,50);
+			p.draw(sx, sy);
 		}
 	});
 
+	planets.forEach(function(p) {
+		var sx = map(p.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+		var sy = map(p.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 
-	text(rocket.pos.y,20,height-100);
+		if (sx > 0 && sx < width && sy > 0 && sy < height) {
+			//fill(0);
+			//ellipse(sx,sy,50,50);
+			p.draw(sx, sy);
+		}
+	});
+
+	rocket.draw(sx, sy);
+
+
+	textSize(24);
+	text(round(rocket.pos.y), width-100, 100);
+
+	textSize(12);
+	text(rocket.vel, 20, height - 80);
+	text(rocket.acc, 20, height - 60);
+
+	text('rocket and planets by lastspark from The Noun Project', width - 300, height - 30)
 
 }
 
-function createPlanet(x,y){
+function createStar(x, y, img) {
 	var p = {
-		pos: createVector(x,y)
+		pos: createVector(x, y),
+		image: img,
+		rotation: random(0, TWO_PI),
+		size: random(3, 10),
+		draw: function(x, y) {
+			push();
+			translate(x, y);
+			rotate(this.rotation);
+			image(this.image, 0, 0, this.size, this.size);
+			pop();
+		}
 	};
 
 	return p;
 }
 
-function createRocket(x,y,img){
+function createPlanet(x, y, img) {
+	var p = {
+		pos: createVector(x, y),
+		image: img,
+		rotation: random(0, TWO_PI),
+		size: random(50, 100),
+		draw: function(x, y) {
+			push();
+			translate(x, y);
+			rotate(this.rotation);
+			image(this.image, 0, 0, this.size, this.size);
+			pop();
+		}
+	};
+
+	return p;
+}
+
+function createRocket(x, y, img) {
 
 	var rock = {
-		pos: createVector(x,y),
-		vel: createVector(0,0),
-		thrust: function(d){
-			this.vel.set(0,d);
+		pos: createVector(x, y),
+		vel: 0,
+		acc: 0,
+		maxVel: 50,
+		friction: 0.99,
+		thrust: function(d) {
+			this.acc = d;
+			console.log(d, this.acc);
 		},
-		update: function(){
-			this.pos.add(this.vel);
+		update: function(dt) {
+
+			console.log('this.acc: ' + this.acc);
+			this.vel = this.vel + this.acc * dt;
+			this.vel = this.vel * this.friction;
+			this.vel = constrain(this.vel, 0, this.maxVel);
+			this.pos.y = this.pos.y + dt * this.vel;
 		},
 		image: img,
-		draw: function(x,y){
-
-			image(img,x,y,300,300);
+		draw: function(x, y) {
+			push();
+			translate(x, y);
+			image(this.image, 0, 0);
+			pop();
 		}
 	};
 
@@ -140,17 +211,22 @@ function windowResized() {
 	console.log(select('#chart'));
 }
 
-function keyTyped(){
-
-	if(key=='q'){
+function keyPressed() {
+	console.log('keyPressed');
+	console.log('key:' + key);
+	if (key == 'Q') {
 		rocket.thrust(-1);
-	}
-	else if(key == 'w'){
-		rocket.thrust(1);
-	}
-	else if(key == 'r'){
+	} else if (key == 'W') {
+
+		rocket.thrust(10);
+	} else if (key == 'R') {
 		rocket.thrust(0);
 	}
+}
+
+function keyReleased() {
+	console.log('keyReleased');
+	rocket.thrust(0);
 }
 
 //this needs to be part of a helper library together with sum and mean maybe median also
