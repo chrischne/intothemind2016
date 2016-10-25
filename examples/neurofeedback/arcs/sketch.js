@@ -17,7 +17,7 @@
 var muse;
 
 //initialize museData
-var dummy = true;
+var dummy = false;
 
 var done = false;
 
@@ -51,6 +51,10 @@ var angle = 0;
 
 
 var rSlider;
+
+var thresholds = [];
+
+var displayThreshold = true;
 
 
 function setup() {
@@ -128,18 +132,23 @@ function draw() {
 //	var score = fitness(thetaValue.mean, alphaValue.mean, betaValue.mean, thresholdTheta, thresholdAlpha, thresholdBeta);
 //	console.log('score', score);
 
-	var value = alphaTheta(alphaValue.mean,thetaValue.mean,betaValue.mean);
+	var value = alphaTheta(alphaValue.mean,thetaValue.mean,betaValue.mean); //alphaTraining(alphaValue.mean,thetaValue.mean,betaValue.mean);
 	var threshold = thresh.threshold(value);
 	var fitness = value - threshold;
 	console.log('value',value);
 	console.log('threshold',threshold);
 	console.log('fitness',fitness);
 
-	var dir = map(fitness,-0.2,0.2,-0.01,0.01);
+	if(frameCount>200 && frameCount%10==0){
+	thresholds.push(threshold);
+}
+
+	//var dir = map(fitness,-0.2,0.2,-0.01,0.01);
 
 
 //thet += dir; 
-thet = constrain(thet+dir,-3,0);
+//thet = constrain(thet+dir,-3,0);
+thet = map(fitness,-0.4,0.4,-3,0);
 console.log('thet',thet);
 
 
@@ -159,6 +168,42 @@ console.log('thet',thet);
 	
 	pop();
 	//thet += .0523;
+
+
+	if(displayThreshold){
+
+		if(thresholds.length<=0){
+			return;
+		}
+
+		var _min = min(thresholds);
+		var _max = max(thresholds);
+		var w = 400;
+		var h= 50
+		stroke('white');
+		noFill();
+		push();
+		translate(200,height-100);
+		strokeWeight(2.2);
+		beginShape();
+		thresholds.forEach(function(d,i){
+			var x = map(i,0,thresholds.length-1,0,w);
+			var y = map(thresholds[i],_min,_max,h,0);
+			vertex(x,y);
+		});
+		endShape();
+
+		var x = map(thresholds.length-1,0,thresholds.length-1,0,w);
+		var y = map(thresholds[thresholds.length-1],_min,_max,h,0);
+		ellipse(x,y,5,5);
+		var value= nf(thresholds[thresholds.length-1],null,3);
+		console.log('value'.value)
+		textAlign(LEFT,CENTER);
+		noStroke();
+		fill('white');
+		text(value,x+5,y);
+		pop();
+	}
 	
 
 
@@ -169,6 +214,14 @@ function windowResized() {
 	console.log('windowResized')
 	resizeCanvas(window.innerWidth, window.innerHeight);
 	console.log('width', width, 'height', height);
+	console.log(select('#chart'));
+}
+
+function keyTyped(){
+
+	if(key=='d'){
+	displayThreshold = !displayThreshold;
+	}
 }
 
 
@@ -273,6 +326,13 @@ function jsonify(msg) {
 
 }
 
+function alphaTraining(_alpha,_theta,_beta){
+	if(!_alpha || !_theta || !_beta){
+		return 0;
+	}
+	return _alpha - 0.5*_beta;
+}
+
 
 function alphaTheta(_alpha,_theta,_beta){
 	if(!_alpha || !_theta || !_beta){
@@ -280,7 +340,8 @@ function alphaTheta(_alpha,_theta,_beta){
 	}
 	var betaWeight = -0.5;
 	var diffWeigth = 0.5;
-	return _alpha + _theta + betaWeight*_beta + diffWeigth*(_theta-_alpha)
+	return _alpha + _theta + betaWeight*_beta;// + diffWeigth*(_theta-_alpha)
+
 }
 
 /**
@@ -328,7 +389,7 @@ function dynamicThreshold(val) {
 
 	var step = 0.01;
 	//how many measurements to take into account
-	var n = 3000;
+	var n = 1000;
 
 	function my() {
 
@@ -360,7 +421,7 @@ function dynamicThreshold(val) {
 				}*/
 
 
-		thres = 0.8 * _mean;
+		thres = 0.85 * _mean;
 		return thres;
 	}
 
