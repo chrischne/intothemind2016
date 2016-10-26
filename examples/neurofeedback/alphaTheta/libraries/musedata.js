@@ -174,24 +174,35 @@ function dummyConnector(interval) {
     if (!callbacks[_id]) {
       callbacks[_id] = getCallback(_id);
       dataContainer[_id] = {};
+      console.log('now listening to ' + _id);
     } else {
       console.log('already listening to ' + _id);
     }
 
   }
 
+  var secondround = false;
+
   my.onMsg = function() {
-    //console.log('dummyConnector.onMsg');
+   // console.log('dummyConnector.onMsg',msgIndex,data.length);
 
     if (msgIndex >= data.length) {
       msgIndex = 0;
       console.log('resetting msgIndex to ' + msgIndex);
+      secondround = true;
     }
-    var msg = data[msgIndex];
+    var msg = data[msgIndex].slice();
+    
     msgIndex++;
 
 
     msg.shift();
+
+    /*if(secondround){
+      console.log('msg',msg);
+    }*/
+
+    
 
 
     var id = msg[0];
@@ -201,7 +212,9 @@ function dummyConnector(interval) {
     var cback = callbacks[id];
 
     if (cback) {
+
       var jsonobj = cback(msg);
+      //console.log(jsonobj);
       dataContainer[jsonobj.id] = jsonobj;
     }
     return my;
