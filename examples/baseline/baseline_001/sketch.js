@@ -1,8 +1,4 @@
-//TODO 
-//nice header here
-//make recorder object for the data, that will make it simpler for the students
 var muse;
-
 
 //horseShoe
 var horseShoeData = [];
@@ -25,14 +21,11 @@ var gammaStatus = [0, 0, 0, 0];
 
 
 //raw FFT data
-
-
 var rawFFTStatus = [];
 
 //recording specific booleans
 var isRecording = false;
 var dataReady = false;
-
 
 //colors
 var deltaColor = '#F6F792';
@@ -51,30 +44,31 @@ var H3 = 11;
 
 var TEXTFILL = '#767676';
 
+var dummy = false;
+
+var intervalId = null;
 
 function setup() {
 	createCanvas(700, 800);
 
 
 	//MUSEDATA
-	//muse = museData().connection('http://127.0.0.1:8081');
-	//connection with dummyData
-	//muse = museData().dummyData();
-	muse = museData().dummyData(1000 / 124);
+	if (dummy) {
+		console.log('using dummy data');
+		muse = museData().dummyData();
+	} else {
+		console.log('connecting to http://127.0.0.1:8081');
+		muse = museData().connection('http://127.0.0.1:8081');
+	}
 
 	//setting up callbacks to specific id's
-	muse.listenTo('/muse/elements/horseshoe', parseHorse);
-	muse.listenTo('/muse/elements/delta_relative', parseDelta);
-	muse.listenTo('/muse/elements/theta_relative', parseTheta);
-	muse.listenTo('/muse/elements/alpha_relative', parseAlpha);
-	muse.listenTo('/muse/elements/beta_relative', parseBeta);
-	muse.listenTo('/muse/elements/gamma_relative', parseGamma);
-	muse.listenTo('/muse/elements/raw_fft0', parseRawFFT);
-
-
-	//start data transmission
-	//muse.start();
-
+	muse.listenTo('/muse/elements/horseshoe');
+	muse.listenTo('/muse/elements/delta_relative');
+	muse.listenTo('/muse/elements/theta_relative');
+	muse.listenTo('/muse/elements/alpha_relative');
+	muse.listenTo('/muse/elements/beta_relative');
+	muse.listenTo('/muse/elements/gamma_relative');
+	muse.listenTo('/muse/elements/raw_fft0');
 
 	//BUTTONS
 	var startButton = createButton('start');
@@ -205,7 +199,7 @@ function drawLegend(labelWidth, r, labels, colors) {
 		textAlign(LEFT, CENTER);
 		fill(TEXTFILL);
 		textSize(H3)
-		text(labels[i], x + r, y+1);
+		text(labels[i], x + r, y + 1);
 
 
 	}
@@ -365,67 +359,57 @@ function recordingLight() {
 	ellipse(0, 0, 15, 15);
 }
 
-/**
-
-To get the frequency resolution for the bins, you can divide the sampling rate 
-by the FFT length, so in the case of Muse: 220/256 ~ 0.86Hz/bin
-
-So, the zeroth index of the FFT array represents 0Hz, the next index represents 0-0.86Hz, 
-and so on up to 128*0.86 = 110Hz, which is the maximum frequency 
-that our FFT with its 220Hz sampling rate can detect.
-*/
-function parseRawFFT(msg) {
-	console.log('parseRawFFT');
-
-	//make array from object
-	var arr = [];
-	for (var i = 2; i <= 99; i++) {
-		arr.push(msg[i]);
-	}
-
-	rawFFTData.push(arr);
-
-	//console.log('arr',arr);
-}
-
-
-
-function parseHorse(msg) {
-	console.log('parseHorse', msg);
-	//console.log('this',this);
-
-	var values = msg.slice(2);
-	console.log('values', values);
-	horseShoeData.push(values);
-
-
-}
 
 function startRecording() {
 
 	if (!isRecording) {
 		console.log('startRecording');
-		 deltaData = [];
- thetaData = [];
- alphaData = [];
- betaData = [];
- gammaData = [];
- horseShoeData = [];
+		deltaData = [];
+		thetaData = [];
+		alphaData = [];
+		betaData = [];
+		gammaData = [];
+		horseShoeData = [];
 
-var rawFFTData = [];
+		var rawFFTData = [];
 		muse.start();
 		isRecording = true;
+
+		intervalId = setInterval(harvestMuse, 100);
 	}
+}
+
+function harvestMuse() {
+	console.log('harvestMuse');
+
+
+	var horse = muse.get('/muse/elements/horseshoe');
+	var delta_relative = muse.get('/muse/elements/delta_relative');
+	var theta_relative = muse.get('/muse/elements/theta_relative');
+	var alpha_relative = muse.get('/muse/elements/alpha_relative');
+	var beta_relative = muse.get('/muse/elements/beta_relative');
+	var gamme_relative = muse.get('/muse/elements/gamma_relative');
+	var rawfft = muse.get('/muse/elements/raw_fft0');
+
+
+	horseShoeData.push(horse);
+	deltaData.push(delta_relative);
+	thetaData.push(theta_relative);
+	alphaData.push(alpha_relative);
+	betaData.push(beta_relative);
+	gammaData.push(gamme_relative);
+	rawFFTData.push(rawfft);
 }
 
 function stopRecording() {
 
 	if (isRecording) {
 		console.log('stopRecording');
+
+
+		clearInterval(intervalId);
 		muse.stop();
 		isRecording = false;
-
-		//maybe make a function here with return value
 		mineData();
 	}
 }
@@ -438,11 +422,11 @@ function mineData() {
 	*/
 
 	console.log('mineData');
-	//console.log('horseShoeData', horseShoeData);
+
 
 	horseShoeStatus = [0, 0, 0, 0];
 	for (var i = 0; i < horseShoeData.length; i++) {
-		var curr = horseShoeData[i];
+		var curr = [horseShoeData[i].leftEear, horseShoeData[i].leftFront, horseShoeData[i].rightFront, horseShoeData[i].rightEar];
 		for (var j = 0; j < curr.length; j++) {
 			if (curr[j] > horseShoeStatus[j]) {
 				horseShoeStatus[j] = curr[j];
@@ -450,33 +434,49 @@ function mineData() {
 		}
 	}
 
-	//console.log('horseShoeStatus', horseShoeStatus);
-
 
 	//mine delta, theta, alpha, beta, gamma
 	//calculate the average per sensor
-	deltaStatus = calcAvg(deltaData);
-//	console.log('deltaStatus', deltaStatus);
 
-	thetaStatus = calcAvg(thetaData);
-//	console.log('thetaStatus', thetaStatus);
+	deltaData = deltaData.filter(function(d) {
+		return d.id;
+	});
+	deltaStatus = calcAvgFromBand(deltaData);
+	//console.log('deltaStatus', deltaStatus);
 
-	alphaStatus = calcAvg(alphaData);
-//	console.log('alphaStatus', alphaStatus);
+	thetaData = thetaData.filter(function(d) {
+		return d.id;
+	});
+	thetaStatus = calcAvgFromBand(thetaData);
+	//	console.log('thetaStatus', thetaStatus);
 
-	betaStatus = calcAvg(betaData);
+	alphaData = alphaData.filter(function(d) {
+		return d.id;
+	});
+	alphaStatus = calcAvgFromBand(alphaData);
+	//	console.log('alphaStatus', alphaStatus);
+
+	betaData = betaData.filter(function(d) {
+		return d.id;
+	});
+	betaStatus = calcAvgFromBand(betaData);
 	//console.log('betaStatus', betaStatus);
 
-	gammaStatus = calcAvg(gammaData);
-//	console.log('gammaStatus', gammaStatus);
+	gammaData = gammaData.filter(function(d) {
+		return d.id;
+	});
+	gammaStatus = calcAvgFromBand(gammaData);
+	//	console.log('gammaStatus', gammaStatus);
 
 
 	//raw FFT statuts
 
-	rawFFTStatus = calcAvg(rawFFTData);
-//	console.log('rawFFTStatus', rawFFTStatus);
+	//only keep valid data containing an id
+	rawFFTData = rawFFTData.filter(function(d) {
+		return d.id;
+	});
 
-
+	rawFFTStatus = calcAvgRawFFT(rawFFTData);
 
 	dataReady = true;
 
@@ -484,65 +484,50 @@ function mineData() {
 
 }
 
-function calcAvg(arr) {
-	//[[a,b,c,d],[a,b,c,d],...]
 
-	var memberLength = arr[0].length;
-	var avgArr = [];
-	//loop through sensors
-	for (var i = 0; i < memberLength; i++) {
+function calcAvgRawFFT(arr) {
+	
+	var firstObj = arr[0];
+	var n = firstObj.values.length;
+	
 
-		var sum = 0;
-		//loop through recorded data
-		for (var j = 0; j < arr.length; j++) {
-			sum += arr[j][i];
-		}
-
-		var avg = sum / arr.length;
-
-		avgArr.push(avg);
+	var meanArray = [];
+	for (var i = 0; i < n; i++) {
+		var catArr = arr.map(function(d) {
+			return d.values[i];
+		});
+		var meanVal = mean(catArr);
+		meanArray.push(meanVal);
 	}
 
-	return avgArr;
+	return meanArray;
 }
 
-function parseDelta(msg) {
-	console.log('parseDelta', msg);
-	var values = msg.slice(2);
-	//console.log('values', values);
-	deltaData.push(values);
+function calcAvgFromBand(arr) {
+	//need to return something like this [0,0,0,0]
+
+	var leftEarData = arr.map(function(d) {
+		return d.leftEar;
+	});
+
+	var rightEarData = arr.map(function(d) {
+		return d.rightEar;
+	});
+
+	var leftFrontData = arr.map(function(d) {
+		return d.leftFront;
+	});
+
+	var rightFrontData = arr.map(function(d) {
+		return d.rightFront;
+	});
+
+
+	return [mean(leftEarData), mean(leftFrontData), mean(rightFrontData), mean(rightEarData)];
 
 }
 
-function parseTheta(msg) {
-	console.log('parseTheta', msg);
-	var values = msg.slice(2);
-	//console.log('values', values);
-	thetaData.push(values);
-}
 
-function parseAlpha(msg) {
-	console.log('parseAlpha', msg);
-	var values = msg.slice(2);
-	//console.log('values', values);
-	alphaData.push(values);
-
-}
-
-function parseBeta(msg) {
-	console.log('parseBeta', msg);
-
-	var values = msg.slice(2);
-	//console.log('values', values);
-	betaData.push(values);
-}
-
-function parseGamma(msg) {
-	console.log('parseGamma', msg);
-	var values = msg.slice(2);
-	//console.log('values', values);
-	gammaData.push(values);
-}
 
 function getCol(hz) {
 	/*Name	Frequency Range			
@@ -575,4 +560,15 @@ var gammaColor = 'orange';
 	} else {
 		return 'black';
 	}
+}
+
+function mean(arr) {
+	var sum = 0;
+
+	arr.forEach(function(d) {
+		sum += d;
+	});
+
+	return sum / arr.length;
+
 }
