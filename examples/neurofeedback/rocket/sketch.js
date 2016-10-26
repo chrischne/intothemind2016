@@ -29,6 +29,9 @@ var earthDiameter = 3000;
 var earthX = universeWidth/2;
 var earthY = -0.138*earthDiameter;
 
+var maxAlpha = Number.MIN_VALUE;
+var minBeta = Number.MAX_VALUE;
+
 function preload() {
 	rocketimg = loadImage("assets/rocket.png");
 	planetimgs.push(loadImage("assets/planet1.png"));
@@ -97,12 +100,16 @@ function draw() {
 		console.log('frameRate: ' + frameRate());
 	}
 
-
-
 	var alpha_relative = muse.get('/muse/elements/alpha_relative');
 	var beta_relative = muse.get('/muse/elements/beta_relative');
 
-	var score = alphaBeta(alpha_relative,beta_relative);
+	var alphaMean = (alpha_relative.leftEar + alpha_relative.rightEar + alpha_relative.leftFront + alpha_relative.rightFront)/4;
+	var betaMean = (beta_relative.leftEar + beta_relative.rightEar + beta_relative.leftFront + beta_relative.rightFront)/4;
+
+	maxAlpha = alphaMean > maxAlpha ? alphaMean : maxAlpha;
+	minBeta = betaMean < minBeta ? betaMean : minBeta;
+
+	var score = alphaBeta(alphaMean,betaMean);
 	var threshold = thresh.threshold(score);
 
 	var feedback = score - threshold;
@@ -148,11 +155,11 @@ function draw() {
 	});
 
 	//draw the earth
-	var sEarthx = map(earthX, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+	/*var sEarthx = map(earthX, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
 	var sEarthy = map(earthY, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 	fill(0);
 	//console.log(sEarthy,sEarthy);
-	ellipse(sEarthx,sEarthy,earthDiameter,earthDiameter);
+	ellipse(sEarthx,sEarthy,earthDiameter,earthDiameter);*/
 
 
 	//draw rocket
@@ -166,8 +173,11 @@ function draw() {
 	text(round(rocket.pos.y), width-100, 100);
 
 	textSize(12);
-	text(rocket.vel, 20, height - 80);
-	text(rocket.acc, 20, height - 60);
+	text('Vel: ' + nf(rocket.vel,null,1), 20, height - 100);
+	text('Acc: ' + nf(rocket.acc,null,1), 20, height - 80);
+	text('Threshold: ' + nf(threshold,null,2),20,height-60);
+	text('Max Alpha: ' + nf(maxAlpha*100,null,0) + ' %',20,height-40);
+	text('Min Beta: ' + nf(minBeta*100,null,0) + ' %',20,height-20);
 
 	text('rocket and planets by lastspark from The Noun Project', width - 300, height - 30)
 
@@ -175,10 +185,9 @@ function draw() {
 
 function alphaBeta(alphaValue,betaValue){
 
-	var alphaMean = (alphaValue.leftEar + alphaValue.rightEar + alphaValue.leftFront + alphaValue.rightFront)/4;
-	var betaMean = (betaValue.leftEar + betaValue.rightEar + betaValue.leftFront + betaValue.rightFront)/4;
+	
 	//console.log(alphaMean,betaMean)
-	return alphaMean-betaMean;
+	return alphaValue-betaValue;
 }
 
 function createStar(x, y, img) {
