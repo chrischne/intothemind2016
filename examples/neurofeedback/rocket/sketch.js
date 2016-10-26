@@ -114,12 +114,12 @@ function draw() {
 
 	var feedback = score - threshold;
 
-	console.log('score: ' + score);
+	//console.log('score: ' + score);
 
-	console.log('feedback: ' + feedback);
+	//console.log('feedback: ' + feedback);
 
 	var power = map(feedback,-1,1,-30,30);
-	console.log('power ' + power);
+	//console.log('power ' + power);
 	rocket.thrust(power);
 
 
