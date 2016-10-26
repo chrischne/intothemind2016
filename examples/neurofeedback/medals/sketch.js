@@ -182,14 +182,3 @@ function dynamicThreshold() {
 	return my;
 }
 
-//calculate mean of an array
-function mean(arr) {
-	var sum = 0;
-
-	arr.forEach(function(d) {
-		sum += d;
-	});
-
-	return sum / arr.length;
-
-}
