@@ -1,7 +1,7 @@
 var muse;
 
 //initialize museData
-var dummy = true;
+var dummy = false;
 
 var done = false;
 
@@ -25,6 +25,9 @@ var starImg = null;
 
 var dt = 0.1;
 var clipDist = 100;
+var earthDiameter = 3000;
+var earthX = universeWidth/2;
+var earthY = -0.138*earthDiameter;
 
 function preload() {
 	rocketimg = loadImage("assets/rocket.png");
@@ -53,7 +56,7 @@ function setup() {
 	//listen to the messages we are interested in 
 	muse.listenTo('/muse/elements/alpha_relative');
 	muse.listenTo('/muse/elements/beta_relative');
-	muse.listenTo('/muse/elements/theta_relative');
+	//muse.listenTo('/muse/elements/theta_relative');
 
 	muse.start();
 
@@ -76,6 +79,7 @@ function setup() {
 
 	frameRate(30);
 	imageMode(CENTER);
+	ellipseMode(CENTER);
 
 }
 
@@ -84,21 +88,42 @@ function draw() {
 
 	background(255);
 
+	if(frameCount<30){
+		background('black');
+		return;
+	}
+
 	if (frameCount % 100 == 0) {
 		console.log('frameRate: ' + frameRate());
 	}
 
 
+
+	var alpha_relative = muse.get('/muse/elements/alpha_relative');
+	var beta_relative = muse.get('/muse/elements/beta_relative');
+
+	var score = alphaBeta(alpha_relative,beta_relative);
+	var threshold = thresh.threshold(score);
+
+	var feedback = score - threshold;
+
+	console.log('score: ' + score);
+
+	console.log('feedback: ' + feedback);
+
+	var power = map(feedback,-1,1,-30,30);
+	console.log('power ' + power);
+	rocket.thrust(power);
+
+
+	//update rocket positions
 	rocket.update(dt);
 
 
-	//fill('red');
-	//ellipse(rocket.pos.x,rocket.pos.y,50,50);
 
 
-	var sx = map(rocket.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
-	var sy = map(rocket.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 
+	//draw stars
 	stars.forEach(function(p) {
 		var sx = map(p.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
 		var sy = map(p.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
@@ -110,6 +135,7 @@ function draw() {
 		}
 	});
 
+	//draw planets
 	planets.forEach(function(p) {
 		var sx = map(p.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
 		var sy = map(p.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
@@ -121,9 +147,21 @@ function draw() {
 		}
 	});
 
+	//draw the earth
+	var sEarthx = map(earthX, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+	var sEarthy = map(earthY, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
+	fill(0);
+	//console.log(sEarthy,sEarthy);
+	ellipse(sEarthx,sEarthy,earthDiameter,earthDiameter);
+
+
+	//draw rocket
+	var sx = map(rocket.pos.x, rocket.pos.x - clipDist, rocket.pos.x + clipDist, 0, width);
+	var sy = map(rocket.pos.y, rocket.pos.y - clipDist, rocket.pos.y + clipDist, height, 0);
 	rocket.draw(sx, sy);
 
 
+	//draw text information
 	textSize(24);
 	text(round(rocket.pos.y), width-100, 100);
 
@@ -135,12 +173,20 @@ function draw() {
 
 }
 
+function alphaBeta(alphaValue,betaValue){
+
+	var alphaMean = (alphaValue.leftEar + alphaValue.rightEar + alphaValue.leftFront + alphaValue.rightFront)/4;
+	var betaMean = (betaValue.leftEar + betaValue.rightEar + betaValue.leftFront + betaValue.rightFront)/4;
+	//console.log(alphaMean,betaMean)
+	return alphaMean-betaMean;
+}
+
 function createStar(x, y, img) {
 	var p = {
 		pos: createVector(x, y),
 		image: img,
 		rotation: random(0, TWO_PI),
-		size: random(3, 10),
+		size: random(3, 20),
 		draw: function(x, y) {
 			push();
 			translate(x, y);
@@ -178,14 +224,14 @@ function createRocket(x, y, img) {
 		vel: 0,
 		acc: 0,
 		maxVel: 50,
-		friction: 0.99,
+		friction: 0.98,
 		thrust: function(d) {
 			this.acc = d;
-			console.log(d, this.acc);
+			//console.log(d, this.acc);
 		},
 		update: function(dt) {
 
-			console.log('this.acc: ' + this.acc);
+			//console.log('this.acc: ' + this.acc);
 			this.vel = this.vel + this.acc * dt;
 			this.vel = this.vel * this.friction;
 			this.vel = constrain(this.vel, 0, this.maxVel);
@@ -245,7 +291,7 @@ function mean(arr) {
 function dynamicThreshold(val) {
 
 	var values = [];
-	var thres = val || 0.5;
+	var thres = val || 0.1;
 
 	var step = 0.01;
 	//how many measurements to take into account
