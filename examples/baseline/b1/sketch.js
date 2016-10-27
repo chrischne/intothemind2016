@@ -44,7 +44,7 @@ var H3 = 11;
 
 var TEXTFILL = '#767676';
 
-var dummy = false;
+var dummy = true;
 
 var intervalId = null;
 

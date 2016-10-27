@@ -1,7 +1,7 @@
 var muse;
 
 //initialize museData
-var dummy = true;
+var dummy = false;
 
 var done = false;
 
@@ -109,11 +109,10 @@ function draw() {
 	maxAlpha = alphaMean > maxAlpha ? alphaMean : maxAlpha;
 	minBeta = betaMean < minBeta ? betaMean : minBeta;
 
-	var score = alphaBeta(alphaMean,betaMean);
+	var score = beta(alphaMean,betaMean);//alphaBeta(alphaMean,betaMean);
 	var threshold = thresh.threshold(score);
 
 	var feedback = score - threshold;
-
 	//console.log('score: ' + score);
 
 	//console.log('feedback: ' + feedback);
@@ -188,6 +187,10 @@ function alphaBeta(alphaValue,betaValue){
 	
 	//console.log(alphaMean,betaMean)
 	return alphaValue-betaValue;
+}
+
+function beta(alphaValue,betaValue){
+	return betaValue-alphaValue;
 }
 
 function createStar(x, y, img) {
@@ -304,7 +307,7 @@ function dynamicThreshold(val) {
 
 	var step = 0.01;
 	//how many measurements to take into account
-	var n = 1000;
+	var n = 500;
 
 	function my() {
 
@@ -336,7 +339,7 @@ function dynamicThreshold(val) {
 				}*/
 
 
-		thres = 0.85 * _mean;
+		thres = 0.8 * _mean;
 		return thres;
 	}
 
