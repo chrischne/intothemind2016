@@ -26,9 +26,10 @@ var starImg = null;
 var dt = 0.1;
 var clipDist = 100;
 var earthDiameter = 3000;
-var earthX = universeWidth/2;
-var earthY = -0.138*earthDiameter;
+var earthX = universeWidth / 2;
+var earthY = -0.138 * earthDiameter;
 
+var maxTheta = Number.MIN_VALUE;
 var maxAlpha = Number.MIN_VALUE;
 var minBeta = Number.MAX_VALUE;
 
@@ -59,7 +60,7 @@ function setup() {
 	//listen to the messages we are interested in 
 	muse.listenTo('/muse/elements/alpha_relative');
 	muse.listenTo('/muse/elements/beta_relative');
-	//muse.listenTo('/muse/elements/theta_relative');
+	muse.listenTo('/muse/elements/theta_relative');
 
 	muse.start();
 
@@ -91,7 +92,7 @@ function draw() {
 
 	background(255);
 
-	if(frameCount<30){
+	if (frameCount < 30) {
 		background('black');
 		return;
 	}
@@ -100,16 +101,23 @@ function draw() {
 		console.log('frameRate: ' + frameRate());
 	}
 
+
+	var theta_relative = muse.get('/muse/elements/theta_relative');
 	var alpha_relative = muse.get('/muse/elements/alpha_relative');
 	var beta_relative = muse.get('/muse/elements/beta_relative');
 
-	var alphaMean = (alpha_relative.leftEar + alpha_relative.rightEar + alpha_relative.leftFront + alpha_relative.rightFront)/4;
-	var betaMean = (beta_relative.leftEar + beta_relative.rightEar + beta_relative.leftFront + beta_relative.rightFront)/4;
+	console.log(alpha_relative);
 
-	maxAlpha = alphaMean > maxAlpha ? alphaMean : maxAlpha;
-	minBeta = betaMean < minBeta ? betaMean : minBeta;
+	//var alphaMean = (alpha_relative.leftEar + alpha_relative.rightEar + alpha_relative.leftFront + alpha_relative.rightFront)/4;
+	//var betaMean = (beta_relative.leftEar + beta_relative.rightEar + beta_relative.leftFront + beta_relative.rightFront)/4;
 
-	var score = beta(alphaMean,betaMean);//alphaBeta(alphaMean,betaMean);
+	if (frameCount > 1000) {
+		maxTheta = theta_relative.mean > maxTheta ? theta_relative.mean : maxTheta;
+		maxAlpha = alpha_relative.mean > maxAlpha ? alpha_relative.mean : maxAlpha;
+		minBeta = beta_relative.mean < minBeta ? beta_relative.mean : minBeta;
+	}
+
+	var score = alphaTheta(theta_relative.mean, alpha_relative.mean, beta_relative.mean); //beta(alphaMean,betaMean);//alphaBeta(alphaMean,betaMean);
 	var threshold = thresh.threshold(score);
 
 	var feedback = score - threshold;
@@ -117,15 +125,13 @@ function draw() {
 
 	//console.log('feedback: ' + feedback);
 
-	var power = map(feedback,-1,1,-30,30);
+	var power = map(feedback, -1, 1, -30, 30);
 	//console.log('power ' + power);
 	rocket.thrust(power);
 
 
 	//update rocket positions
 	rocket.update(dt);
-
-
 
 
 
@@ -169,28 +175,33 @@ function draw() {
 
 	//draw text information
 	textSize(24);
-	text(round(rocket.pos.y), width-100, 100);
+	text(round(rocket.pos.y), width - 100, 100);
 
-	textSize(12);
-	text('Vel: ' + nf(rocket.vel,null,1), 20, height - 100);
-	text('Acc: ' + nf(rocket.acc,null,1), 20, height - 80);
-	text('Threshold: ' + nf(threshold,null,2),20,height-60);
-	text('Max Alpha: ' + nf(maxAlpha*100,null,0) + ' %',20,height-40);
-	text('Min Beta: ' + nf(minBeta*100,null,0) + ' %',20,height-20);
+	textSize(16);
+	text('Vel: ' + nf(rocket.vel, null, 1), 20, height - 120);
+	text('Acc: ' + nf(rocket.acc, null, 1), 20, height - 100);
+	text('Threshold: ' + nf(threshold, null, 2), 20, height - 80);
+	text('Max Theta: ' + nf(maxTheta * 100, null, 0) + ' %', 20, height - 60);
+	text('Max Alpha: ' + nf(maxAlpha * 100, null, 0) + ' %', 20, height - 40);
+	text('Min Beta: ' + nf(minBeta * 100, null, 0) + ' %', 20, height - 20);
 
 	text('rocket and planets by lastspark from The Noun Project', width - 300, height - 30)
 
 }
 
-function alphaBeta(alphaValue,betaValue){
-
-	
-	//console.log(alphaMean,betaMean)
-	return alphaValue-betaValue;
+function alphaTheta(thetaMean, alphaMean, betaMean) {
+	return thetaMean + alphaMean - Math.abs(thetaMean - alphaMean) - betaMean;
 }
 
-function beta(alphaValue,betaValue){
-	return betaValue-alphaValue;
+function alphaBeta(alphaValue, betaValue) {
+
+
+	//console.log(alphaMean,betaMean)
+	return alphaValue - betaValue;
+}
+
+function beta(alphaValue, betaValue) {
+	return betaValue - alphaValue;
 }
 
 function createStar(x, y, img) {
@@ -303,7 +314,7 @@ function mean(arr) {
 function dynamicThreshold(val) {
 
 	var values = [];
-	var thres = val || 0.1;
+	var thres = val || 0.01;
 
 	var step = 0.01;
 	//how many measurements to take into account
@@ -339,7 +350,7 @@ function dynamicThreshold(val) {
 				}*/
 
 
-		thres = 0.8 * _mean;
+		thres = 0.85 * _mean;
 		return thres;
 	}
 

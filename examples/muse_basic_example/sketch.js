@@ -16,26 +16,10 @@ function setup() {
   //use this line to make a real connection to muse
   //muse = museData().connection('http://127.0.0.1:8081');
 
-  //listen to the messages we are interested in 
-  //muse.listenTo('/muse/eeg');
-  //muse.listenTo('/muse/elements/raw_fft0');
-  //muse.listenTo('/muse/elements/raw_fft1');
-  //muse.listenTo('/muse/elements/raw_fft2');
-  //muse.listenTo('/muse/elements/raw_fft3');
-  //muse.listenTo('/muse/elements/delta_absolute');
-  //muse.listenTo('/muse/elements/theta_absolute');
-  //muse.listenTo('/muse/elements/alpha_absolute');
-  //muse.listenTo('/muse/elements/beta_absolute');
-  //muse.listenTo('/muse/elements/gamma_absolute');
-  //muse.listenTo('/muse/elements/delta_relative');
-  //muse.listenTo('/muse/elements/theta_relative');
+
   muse.listenTo('/muse/elements/alpha_relative');
   muse.listenTo('/muse/elements/beta_relative');
-  //muse.listenTo('/muse/elements/gamma_relative');
   muse.listenTo('/muse/elements/horseshoe');
-  //muse.listenTo('/muse/elements/touching_forehead');
-  //muse.listenTo('/muse/elements/blink');
-  //muse.listenTo('/muse/elements/jaw_clench');
 
   //start muse data collection
   muse.start();
