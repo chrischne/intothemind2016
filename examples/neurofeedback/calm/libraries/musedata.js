@@ -133,6 +133,10 @@ function museConnector(_url) {
     return dataContainer[_id];
   }
 
+  my.isConnected = function(){
+    return socket.connected;
+  }
+
   return my;
 
 }
@@ -245,6 +249,10 @@ function dummyConnector(interval) {
     }
 
     return dataContainer[_id];
+  }
+
+  my.isConnected = function(){
+    return true;
   }
 
 
