@@ -1,0 +1,7 @@
+{
+  "manifest_version": 1,
+  "name": "circle",
+  "version": "1.0",
+  "display": "standalone",
+  "background_color":"rgb(86,154,145)"
+}

@@ -33,6 +33,12 @@ var maxTheta = Number.MIN_VALUE;
 var maxAlpha = Number.MIN_VALUE;
 var minBeta = Number.MAX_VALUE;
 
+var actualThetaBuffer = [];
+var actualAlphaBuffer = [];
+var actualBetaBuffer = [];
+
+var bufferLength = 100;
+
 function preload() {
 	rocketimg = loadImage("assets/rocket.png");
 	planetimgs.push(loadImage("assets/planet1.png"));
@@ -106,7 +112,7 @@ function draw() {
 	var alpha_relative = muse.get('/muse/elements/alpha_relative');
 	var beta_relative = muse.get('/muse/elements/beta_relative');
 
-	console.log(alpha_relative);
+	//console.log(alpha_relative);
 
 	//var alphaMean = (alpha_relative.leftEar + alpha_relative.rightEar + alpha_relative.leftFront + alpha_relative.rightFront)/4;
 	//var betaMean = (beta_relative.leftEar + beta_relative.rightEar + beta_relative.leftFront + beta_relative.rightFront)/4;
@@ -116,6 +122,21 @@ function draw() {
 		maxAlpha = alpha_relative.mean > maxAlpha ? alpha_relative.mean : maxAlpha;
 		minBeta = beta_relative.mean < minBeta ? beta_relative.mean : minBeta;
 	}
+
+	actualThetaBuffer.push(theta_relative.mean);
+	actualAlphaBuffer.push(alpha_relative.mean);
+	actualBetaBuffer.push(beta_relative.mean);
+
+	if(actualThetaBuffer.length > bufferLength){
+		actualThetaBuffer.shift();
+	}
+	if(actualAlphaBuffer.length > bufferLength){
+		actualAlphaBuffer.shift();
+	}
+	if(actualBetaBuffer.length > bufferLength){
+		actualBetaBuffer.shift();
+	}
+
 
 	var score = alphaTheta(theta_relative.mean, alpha_relative.mean, beta_relative.mean); //beta(alphaMean,betaMean);//alphaBeta(alphaMean,betaMean);
 	var threshold = thresh.threshold(score);
@@ -178,18 +199,28 @@ function draw() {
 	text(round(rocket.pos.y), width - 100, 100);
 
 	textSize(16);
+	fill('black');
 	text('Vel: ' + nf(rocket.vel, null, 1), 20, height - 120);
 	text('Acc: ' + nf(rocket.acc, null, 1), 20, height - 100);
 	text('Threshold: ' + nf(threshold, null, 2), 20, height - 80);
-	text('Max Theta: ' + nf(maxTheta * 100, null, 0) + ' %', 20, height - 60);
+	text('Max Theta: ' + nf(maxTheta * 100, null, 0) + ' %' , 20, height - 60);
+	fill('grey');
+	text(nf(mean(actualThetaBuffer) * 100, null, 0) + ' %' , 150, height - 60);
+	fill('black');
 	text('Max Alpha: ' + nf(maxAlpha * 100, null, 0) + ' %', 20, height - 40);
+	fill('grey');
+	text(nf(mean(actualAlphaBuffer) * 100, null, 0) + ' %', 150, height - 40);
+	fill('black');
 	text('Min Beta: ' + nf(minBeta * 100, null, 0) + ' %', 20, height - 20);
+	fill('grey');
+	text(nf(mean(actualBetaBuffer) * 100, null, 0) + ' %', 150, height - 20);
 
 	text('rocket and planets by lastspark from The Noun Project', width - 300, height - 30)
 
 }
 
 function alphaTheta(thetaMean, alphaMean, betaMean) {
+	//return alphaMean - betaMean;
 	return thetaMean + alphaMean - Math.abs(thetaMean - alphaMean) - betaMean;
 }
 
